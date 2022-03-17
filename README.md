@@ -1,37 +1,46 @@
-## Welcome to GitHub Pages
+# TicketVault Staking Stats
 
-You can use the [editor on GitHub](https://github.com/Viken-Blockchain-Solutions/TicketVault_stats/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+This script will fetch spesific data from the blockchain and display it as useful stats.  
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## **Notes**
 
-### Markdown
+_Notes of the different data to query from the smart-contrats, and notes on what to calculate and display in frontend._
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## **Contract addresses**
 
-```markdown
-Syntax highlighted code block
+### Ethereum network
+* `0xe7ab1839cd96d34d38552944cc79570ce8d098d3` - TicketVault13
+* `0x1ED3181B9E5D8C93452C0AF7081502398e8610a2` - TicketVault26
+* `0x3a01C5F9acDeaeAD1e9ac4706489132dF25dc2e9` - TicketVault52
 
-# Header 1
-## Header 2
-### Header 3
+### Staked ERC20
 
-- Bulleted
-- List
+1. `token`.  
 
-1. Numbered
-2. List
+### VaultInfo
 
-**Bold** and _Italic_ and `Code` text
+1. `vault.totalVaultRewards`.  
+2. `vault.totalVaultShares`.
+3. `vault.stakingPeriod`.
 
-[Link](url) and ![Image](src)
-```
+### RewardInfo
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+1. `reward.rewardRate`.
+2. `reward.pendingVaultRewards`.
+3. `reward.claimedVaultRewards`.
+4. `reward.remainingVaultRewards`.
 
-### Jekyll Themes
+## **Data and stats**
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Viken-Blockchain-Solutions/TicketVault_stats/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### TicketVault Stats
 
-### Support or Contact
+* Total number of contracts deployed.
+* Total number of contracts live and staking.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+* Total combined value of staked, in USD and EUR.
+* Total combined value of rewards, in USD and EUR.
+
+* Total days funds safe - No hack Counter 
+
+### 
+
