@@ -30,7 +30,17 @@
     var ticketvault26 = new ethers.Contract(TicketVault26, TICKET_ABI, provider);
     var ticketvault52 = new ethers.Contract(TicketVault52, TICKET_ABI, provider);
     
+    const message_1 = (`${ticketvault13.address}`);
+    const message_2 = (`${ticketvault26.address}`);
+    const message_3 = (`${ticketvault52.address}`);
+
+    document.getElementById("cont-1").innerHTML = message_1;
+    document.getElementById("cont-2").innerHTML = message_2;
+    document.getElementById("cont-3").innerHTML = message_3;
+    
     console.log(`
+    ${ticketvault13.address}
+
         TicketVault13:    ${ticketvault13.address},
         TicketVault26:    ${ticketvault26.address},
         TicketVault52:    ${ticketvault52.address}
@@ -43,5 +53,13 @@
     console.log(rewardInfo.claimedVaultRewards.toString());
     console.log(rewardInfo.remainingVaultRewards.toString());
     
-  })()
+})()
 
+async function getStats() {
+
+    const message_vault = `<p>Fetching TicketVault specs</p>`;
+    document.getElementById("").innerHTML = message_vault;
+    console.log("getting TicketVault info");
+
+
+}
