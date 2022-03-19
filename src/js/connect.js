@@ -51,11 +51,20 @@ let ticketvault13, ticketvault;
     `);
 
     let rewardInfo = await ticketvault13.getRewardInfo();
+    let vaultInfo = await ticketvault.vault();
+
+    console.log(rewardInfo.lastRewardUpdateTimeStamp.toString());
+    console.log(rewardInfo.rewardRate.toString() / 1e18);
+    console.log(rewardInfo.pendingVaultRewards.toLocaleString() / 1e18);
+    console.log(rewardInfo.claimedVaultRewards.toLocaleString() / 1e18);
+    console.log(rewardInfo.remainingVaultRewards.toLocaleString() / 1e18);
     
-    console.log(rewardInfo.rewardRate.toString());
-    console.log(rewardInfo.pendingVaultRewards.toString());
-    console.log(rewardInfo.claimedVaultRewards.toString());
-    console.log(rewardInfo.remainingVaultRewards.toString());
+    console.log(vaultInfo.status);
+    console.log(vaultInfo.stakingPeriod.toString());
+    console.log(vaultInfo.startTimestamp.toString());
+    console.log(vaultInfo.stopTimestamp.toString());
+    console.log(vaultInfo.totalVaultRewards.toLocaleString() / 1e18);
+    console.log((vaultInfo.totalVaultShares.toLocaleString() / 1e18).toFixed(0));
     
     getStats();
 })()
@@ -64,22 +73,28 @@ async function getStats() {
     let rewardInfo = await ticketvault13.getRewardInfo();
     let vaultInfo = await ticketvault.vault();
     
+    let totalVaultShares = vaultInfo.totalVaultShares;
+    let vaultShares = (totalVaultShares / 1e18).toFixed(0);
 
-    let remainingVaultRewards = await rewardInfo.remainingVaultRewards.toString();
-    let totalVaultShares = await vaultInfo.totalVaultShares;
     let totalVaultRewards = await vaultInfo.totalVaultRewards;
     let value = (totalVaultShares.add(totalVaultRewards));
-    
-    
-    document.getElementById("output_staked").innerHTML = (totalVaultShares / 1e18).toString();
-    document.getElementById("output_rewards").innerHTML = (totalVaultRewards / 1e18).toString();
-    document.getElementById("output_value").innerHTML = (value / 1e18).toString();
-    
-    
-    
-    //const message_vault = `<p>Fetching TicketVault specs</p>`;
-    //document.getElementById("").innerHTML = message_vault;
-    //console.log("getting TicketVault info");
 
+    // THe Staked amount in vault
+    document.getElementById("output_staked").innerHTML = (vaultShares).toLocaleString();
 
+    // The Rewards in vault
+    document.getElementById("output_rewards").innerHTML = (totalVaultRewards / 1e18).toLocaleString();
+
+    // The total value of the Vault
+    document.getElementById("output_value").innerHTML = ((value / 1e18).toFixed(0)).toLocaleString(
+            ("en-US", { style: "currency", currency: "USD" })
+        );
+    
 }
+
+async function fetchPrice() {
+    const URL = (`
+    https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${token}&vs_currencies=usd
+    `)
+}
+
