@@ -1,3 +1,4 @@
+let ticketvault13, ticketvault;
 
 (async function () {
 
@@ -17,26 +18,29 @@
     
     const TICKET_ABI = [
         "function getRewardInfo() external view returns (uint256 lastRewardUpdateTimeStamp, uint256 rewardRate, uint256 pendingVaultRewards,uint256 claimedVaultRewards, uint256 remainingVaultRewards)",
-        "function vault()",
+        
     ];
+    const ABI = [{ "inputs": [], "name": "vault", "outputs": [{ "internalType": "enum TicketVault.Status", "name": "status", "type": "uint8" }, { "internalType": "uint256", "name": "stakingPeriod", "type": "uint256" }, { "internalType": "uint256", "name": "startTimestamp", "type": "uint256" }, { "internalType": "uint256", "name": "stopTimestamp", "type": "uint256" }, { "internalType": "uint256", "name": "totalVaultShares", "type": "uint256" }, { "internalType": "uint256", "name": "totalVaultRewards", "type": "uint256" }], "stateMutability": "view", "type": "function" }];
     
+
     // You can also use an ENS name for the contract address
     const TicketVault13 = "0xe7ab1839cd96d34d38552944cc79570ce8d098d3";
     const TicketVault26 = "0x1ED3181B9E5D8C93452C0AF7081502398e8610a2";
     const TicketVault52 = "0x3a01C5F9acDeaeAD1e9ac4706489132dF25dc2e9";
   
     // The Contract objects.
-    var ticketvault13 = new ethers.Contract(TicketVault13, TICKET_ABI, provider);
+    ticketvault13 = new ethers.Contract(TicketVault13, TICKET_ABI, provider);
+    ticketvault = new ethers.Contract(TicketVault13, ABI, provider);
     var ticketvault26 = new ethers.Contract(TicketVault26, TICKET_ABI, provider);
     var ticketvault52 = new ethers.Contract(TicketVault52, TICKET_ABI, provider);
     
-    const message_1 = (`${ticketvault13.address}`);
+    /* const message_1 = (`${ticketvault13.address}`);
     const message_2 = (`${ticketvault26.address}`);
     const message_3 = (`${ticketvault52.address}`);
 
     document.getElementById("cont-1").innerHTML = message_1;
     document.getElementById("cont-2").innerHTML = message_2;
-    document.getElementById("cont-3").innerHTML = message_3;
+    document.getElementById("cont-3").innerHTML = message_3; */
     
     console.log(`
     ${ticketvault13.address}
@@ -47,19 +51,35 @@
     `);
 
     let rewardInfo = await ticketvault13.getRewardInfo();
-
+    
     console.log(rewardInfo.rewardRate.toString());
     console.log(rewardInfo.pendingVaultRewards.toString());
     console.log(rewardInfo.claimedVaultRewards.toString());
     console.log(rewardInfo.remainingVaultRewards.toString());
     
+    getStats();
 })()
 
 async function getStats() {
+    let rewardInfo = await ticketvault13.getRewardInfo();
+    let vaultInfo = await ticketvault.vault();
+    
 
-    const message_vault = `<p>Fetching TicketVault specs</p>`;
-    document.getElementById("").innerHTML = message_vault;
-    console.log("getting TicketVault info");
+    let remainingVaultRewards = await rewardInfo.remainingVaultRewards.toString();
+    let totalVaultShares = await vaultInfo.totalVaultShares;
+    let totalVaultRewards = await vaultInfo.totalVaultRewards;
+    let value = (totalVaultShares.add(totalVaultRewards));
+    
+    
+    document.getElementById("output_staked").innerHTML = (totalVaultShares / 1e18).toString();
+    document.getElementById("output_rewards").innerHTML = (totalVaultRewards / 1e18).toString();
+    document.getElementById("output_value").innerHTML = (value / 1e18).toString();
+    
+    
+    
+    //const message_vault = `<p>Fetching TicketVault specs</p>`;
+    //document.getElementById("").innerHTML = message_vault;
+    //console.log("getting TicketVault info");
 
 
 }
