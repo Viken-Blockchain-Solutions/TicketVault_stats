@@ -60,49 +60,9 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     totalVaultShares = vaultInfo.totalVaultShares;
 
     getStats();
-    fetchPrice();
+    //fetchPrice();
 })()
 
-async function getStats() {
-    let vaultShares = (totalVaultShares / 1e18).toFixed(0);
-    let value = (totalVaultShares.add(totalVaultRewards));
 
-    // THe Staked amount in vault
-    document.getElementById("output_staked").innerHTML = (vaultShares).toLocaleString();
 
-    // The Rewards in vault
-    document.getElementById("output_rewards").innerHTML = (totalVaultRewards / 1e18).toLocaleString();
-
-    // The total value of the Vault
-    document.getElementById("output_value").innerHTML = ((value / 1e18).toFixed(0)).toLocaleString(
-        ("en-US", { style: "currency", currency: "USD" })
-    );
-
-}
-
-async function fetchPrice() {
-    var payload = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-    const token = "0x08ba718F288c3b12B01146816bef9FA03cC635bc";
-
-    const URL = `
-    https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${token}&vs_currencies=usd
-    `;
-
-    const start = async () => {
-        var results = await Promise.all([
-            fetch(URL, payload),
-            //fetch(urlRewardHistory, payload),
-        ]);
-    
-        const dataPromises = results.map( result => result.json());
-        const finalData = await Promise.all(dataPromises);
-        console.log(finalData[1]);
-    }
-    
-    start();
-
-}
 
