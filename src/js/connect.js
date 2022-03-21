@@ -43,10 +43,12 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     _ticketvault26 = new ethers.Contract(TicketVault26, TICKET_ABI, provider);
     _ticketvault52 = new ethers.Contract(TicketVault52, TICKET_ABI, provider);
 
-    rewardInfo = await _ticketvault13.getRewardInfo();
-    vaultInfo = await ticketvault13.vault();
+    //rewardInfo = await _ticketvault13.getRewardInfo();
+    vault13Info = await ticketvault13.vault();
+    vault26Info = await ticketvault26.vault();
+    vault52Info = await ticketvault52.vault();
 
-    lastRewardUpdateTimeStamp = rewardInfo.lastRewardUpdateTimeStamp;
+    /* lastRewardUpdateTimeStamp = rewardInfo.lastRewardUpdateTimeStamp;
     rewardRate = rewardInfo.rewardRate;
     pendingVaultRewards = rewardInfo.pendingVaultRewards;
     claimedVaultRewards = rewardInfo.claimedVaultRewards;
@@ -56,11 +58,21 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     stakingPeriod = vaultInfo.stakingPeriod;
     startTimestamp = vaultInfo.startTimestamp;
     stopTimestamp = vaultInfo.stopTimestamp;
-    totalVaultRewards = vaultInfo.totalVaultRewards;
-    totalVaultShares = vaultInfo.totalVaultShares;
+    */
+ 
+    totalVault13Rewards = vault13Info.totalVaultRewards;
+    totalVault13Shares = vault13Info.totalVaultShares; 
+    //console.log(totalVault13Rewards, totalVault13Shares);
 
-    getStats();
-    //fetchPrice();
+    totalVault26Rewards = vault26Info.totalVaultRewards;
+    totalVault26Shares = vault26Info.totalVaultShares; 
+    //console.log(totalVault26Rewards, totalVault26Shares);
+
+    totalVault52Rewards = vault52Info.totalVaultRewards;
+    totalVault52Shares = vault52Info.totalVaultShares; 
+    //console.log(totalVault52Rewards, totalVault52Shares);
+
+    getVaultStats();
 })()
 
 
