@@ -1,37 +1,32 @@
+let valOf13, valOf26, valOf52;
+let vault13Shares, vault26Shares, vault52Shares;
+
 
 async function getVaultStats() {
+    // get vault shares
     vault13Shares = (totalVault13Shares / 1e18);
     vault26Shares = (totalVault26Shares / 1e18);
     vault52Shares = (totalVault52Shares / 1e18);
-    value13 = (totalVault13Shares.add(totalVault13Rewards) / 1e18);
-    value26 = (totalVault26Shares.add(totalVault26Rewards) / 1e18);
-    value52 = (totalVault52Shares.add(totalVault52Rewards) / 1e18);
-    staked_value = await getValueOf(value13+value26+value52);
-    val13 = await getValueOf(value13);
-    val26 = await getValueOf(value26);
-    val52 = await getValueOf(value52);
-   
-    
-    // THe Staked amount in vault
-    document.getElementById("output_staked").innerHTML = (vault13Shares+vault26Shares+vault52Shares).toLocaleString();
-    
-    // The Rewards in vault
-    document.getElementById("output_rewards").innerHTML = ((totalVault13Rewards.add(totalVault26Rewards).add(totalVault52Rewards)) / 1e18).toLocaleString(0);
-    
-    // The total value of the Vault
-    document.getElementById("output_value").innerHTML = ((staked_value)).toLocaleString();
-    
-    // Add as table data
-    document.getElementById("output_table1").innerHTML = val13.toLocaleString();
-    document.getElementById("output_table2").innerHTML = val26.toLocaleString();
-    document.getElementById("output_table3").innerHTML = val52.toLocaleString();
-}
 
+    // get total erc20 in vault
+    totErc20vault13 = (totalVault13Shares.add(totalVault13Rewards) / 1e18);
+    totErc20vault26 = (totalVault26Shares.add(totalVault26Rewards) / 1e18);
+    totErc20vault52 = (totalVault52Shares.add(totalVault52Rewards) / 1e18);
+    
+    // Fiat value of vaults
+    totVaults_value = await getValueOf(totErc20vault13 + totErc20vault26 + totErc20vault52);
+    valOf13 = await getValueOf(totErc20vault13);
+    valOf26 = await getValueOf(totErc20vault26);
+    valOf52 = await getValueOf(totErc20vault52);
+
+    addToHTML();
+}
 
 /*  
     Load an TicketVault contract address.
     @param address TicketVault address 
-*/const getValueOf = async (totStaked) => {
+*/
+const getValueOf = async (totStaked) => {
     try {
         const urlPriceUSD = "https://api.coingecko.com/api/v3/simple/price?ids=centaurify&vs_currencies=usd";
         const res = await fetch(urlPriceUSD);
@@ -46,3 +41,63 @@ async function getVaultStats() {
 
 }
 
+function addToHTML() {
+    // THe Staked amount in vault
+    document.getElementById("output_totstaked").innerHTML = (vault13Shares + vault26Shares + vault52Shares).toLocaleString();
+
+    // The Rewards in vault
+    document.getElementById("output_totrewards").innerHTML = ((totalVault13Rewards.add(totalVault26Rewards).add(totalVault52Rewards)) / 1e18).toLocaleString(0);
+    
+    // The total value of the Vault
+    document.getElementById("output_totvalue").innerHTML = ((totVaults_value)).toLocaleString();
+    
+    // Add to table as data values
+    document.getElementById("output_table1_value").innerHTML = valOf13.toLocaleString();
+    document.getElementById("output_table2_value").innerHTML = valOf26.toLocaleString();
+    document.getElementById("output_table3_value").innerHTML = valOf52.toLocaleString();
+
+    // Add end dates as table data
+    document.getElementById("output_table1_end").innerHTML = convertUnixTime(vault13End.toNumber());
+    document.getElementById("output_table2_end").innerHTML = convertUnixTime(vault26End.toNumber());
+    document.getElementById("output_table3_end").innerHTML = convertUnixTime(vault52End.toNumber());
+}
+
+
+const getDatesFrom = async (timestamp) => {
+    try {
+        var date = new Date(timestamp * 1000);
+        return date;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function convertUnixTime(unix) {
+    let a = new Date(unix * 1000),
+        year = a.getFullYear(),
+        months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
+        month = months[a.getMonth()],
+        date = a.getDate(),
+        hour = a.getHours(),
+        min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes(),
+        sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
+    return `${month} ${date}, ${year}, ${hour}:${min}:${sec}`;
+}
+
+/* 
+let unix_timestamp = 1549312452
+// Create a new JavaScript Date object based on the timestamp
+// multiplied by 1000 so that the argument is in milliseconds, not seconds.
+var date = new Date(unix_timestamp * 1000);
+// Hours part from the timestamp
+var hours = date.getHours();
+// Minutes part from the timestamp
+var minutes = "0" + date.getMinutes();
+// Seconds part from the timestamp
+var seconds = "0" + date.getSeconds();
+
+// Will display time in 10:30:23 format
+var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+console.log(formattedTime);
+ */

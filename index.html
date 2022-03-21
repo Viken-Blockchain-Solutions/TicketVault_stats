@@ -324,7 +324,7 @@
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div class="col-lg-9">
           <div class="row">
 
             <!-- Staked Card -->
@@ -339,7 +339,7 @@
                       <i class="bi bi-bank2"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 id="output_staked"></h6>
+                      <h6 id="output_totstaked"></h6>
                       <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                     </div>
@@ -362,7 +362,7 @@
                       <i class="bi bi-gift-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 id="output_rewards"></h6>
+                      <h6 id="output_totrewards"></h6>
                       <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                     </div>
@@ -385,7 +385,7 @@
                     </div>
                     <div class="ps-3">
                       
-                      <h6>$ <span id="output_value"></span></h6>
+                      <h6>$ <span id="output_totvalue"></span></h6>
                       <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
 
                     </div>
@@ -479,7 +479,8 @@
                         <th scope="col">Contract</th>
                         <th scope="col">Project</th>
                         <th scope="col">Symbol</th>
-                        <th scope="col">$ Value</th>
+                        <th scope="col">Fiat Value</th>
+                        <th scope="col">End Date</th>
                         <th scope="col">Status</th>
                       </tr>
                     </thead>
@@ -489,7 +490,8 @@
                         <td><a href="https://etherscan.io/address/0xe7ab1839cd96d34d38552944cc79570ce8d098d3">TicketVault13</a></td>
                         <td><a href="https://centaurify.com/staking" class="text-primary">Centaurify</a></td>
                         <td>CENT</td>
-                        <td id="output_table1"></td>
+                        <td id="output_table1_value"></td>
+                        <td id="output_table1_end"></td>
                         <td><span class="badge bg-success">Staking</span></td>
                       </tr>
                       <tr>
@@ -497,7 +499,8 @@
                         <td><a href="https://etherscan.io/address/0x1ed3181b9e5d8c93452c0af7081502398e8610a2">TicketVault26</a></td>
                         <td><a href="https://centaurify.com/staking" class="text-primary">Centaurify</a></td>
                         <td>CENT</td>
-                        <td id="output_table2"></td>
+                        <td id="output_table2_value"></td>
+                        <td id="output_table2_end"></td>
                         <td><span class="badge bg-success">Staking</span></td>
                       </tr>
                       <tr>
@@ -505,7 +508,8 @@
                         <td><a href="https://etherscan.io/address/0x3a01c5f9acdeaead1e9ac4706489132df25dc2e9">TicketVault52</a></td>
                         <td><a href="https://centaurify.com/staking" class="text-primary">Centaurify</a></td>
                         <td>CENT</td>
-                        <td id="output_table3"></td>
+                        <td id="output_table3_value"></td>
+                        <td id="output_table3_end"></td>
                         <td><span class="badge bg-success">Staking</span></td>
                       </tr>
                     </tbody>
@@ -520,13 +524,13 @@
         </div><!-- End Left side columns -->
 
         <!-- Right side columns -->
-        <div class="col-lg-4">
+        <div class="col-lg-3">
 
           <!-- Docs & Contract code -->
           <div class="card">
 
             <div class="card-body pb-4">
-              <h5 class="card-title">Documentation &amp; GitHub <span>| TicketVault</span></h5>
+              <h5 class="card-title">Documentation &amp; GitHub <span>| Links</span></h5>
 
               <div class="news">
                 <div class="post-item clearfix">
