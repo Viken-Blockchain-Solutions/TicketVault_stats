@@ -43,18 +43,21 @@ const getValueOf = async (totStaked) => {
 
 function addToHTML() {
     // THe Staked amount in vault
-    document.getElementById("output_totstaked").innerHTML = (vault13Shares + vault26Shares + vault52Shares).toLocaleString();
+    document.getElementById("output_totstaked").innerHTML = tokensFormatter.format(vault13Shares + vault26Shares + vault52Shares);
 
     // The Rewards in vault
-    document.getElementById("output_totrewards").innerHTML = ((totalVault13Rewards.add(totalVault26Rewards).add(totalVault52Rewards)) / 1e18).toLocaleString(0);
+    document.getElementById("output_totrewards").innerHTML = tokensFormatter.format((totalVault13Rewards.add(totalVault26Rewards).add(totalVault52Rewards)) / 1e18);
     
     // The total value of the Vault
-    document.getElementById("output_totvalue").innerHTML = ((totVaults_value)).toLocaleString();
+    document.getElementById("output_totvalue").innerHTML = formatter.format(totVaults_value);
     
+    // Total Days staking
+    document.getElementById("output_totdays").innerHTML = timespan();
+
     // Add to table as data values
-    document.getElementById("output_table1_value").innerHTML = valOf13.toLocaleString();
-    document.getElementById("output_table2_value").innerHTML = valOf26.toLocaleString();
-    document.getElementById("output_table3_value").innerHTML = valOf52.toLocaleString();
+    document.getElementById("output_table1_value").innerHTML = formatter.format(valOf13);
+    document.getElementById("output_table2_value").innerHTML = formatter.format(valOf26);
+    document.getElementById("output_table3_value").innerHTML = formatter.format(valOf52);
 
     // Add end dates as table data
     document.getElementById("output_table1_end").innerHTML = convertUnixTime(vault13End.toNumber());
@@ -63,23 +66,4 @@ function addToHTML() {
 }
 
 
-const getDatesFrom = async (timestamp) => {
-    try {
-        var date = new Date(timestamp * 1000);
-        return date;
-    } catch (err) {
-        console.log(err);
-    }
-}
 
-function convertUnixTime(unix) {
-    let a = new Date(unix * 1000),
-        year = a.getFullYear(),
-        months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-        month = months[a.getMonth()],
-        date = a.getDate(),
-        hour = a.getHours(),
-        min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes(),
-        sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
-    return `${month} ${date}, ${year}, ${hour}:${min}:${sec}`;
-}

@@ -59,21 +59,22 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     startTimestamp = vaultInfo.startTimestamp;
     stopTimestamp = vaultInfo.stopTimestamp;
     */
- 
+   
     totalVault13Rewards = vault13Info.totalVaultRewards;
     totalVault13Shares = vault13Info.totalVaultShares; 
+    vault13Start = vault13Info.startTimestamp;
     vault13End = vault13Info.stopTimestamp;
-    console.log(totalVault13Rewards.toString());
+    // console.log(vault13Start);
     
     totalVault26Rewards = vault26Info.totalVaultRewards;
     totalVault26Shares = vault26Info.totalVaultShares; 
     vault26End = vault26Info.stopTimestamp;
-    console.log(totalVault26Rewards.toString());
+    // console.log(totalVault26Rewards.toString());
     
     totalVault52Rewards = vault52Info.totalVaultRewards;
     totalVault52Shares = vault52Info.totalVaultShares; 
     vault52End = vault52Info.stopTimestamp;
-    console.log(totalVault52Rewards.toString());
+    // console.log(totalVault52Rewards.toString());
 
     getVaultStats();
 })()
