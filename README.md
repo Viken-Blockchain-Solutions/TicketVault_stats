@@ -42,5 +42,38 @@ _Notes of the different data to query from the smart-contrats, and notes on what
 
 * Total days funds safe - No hack Counter 
 
-### 
+### Deployed SubGraph
+
+```txt
+dadogg80@HP-Spectra-X360:/mnt/c/Users/ivoga/Documents/repos/viken-blockchain-solutions/thegraph/ticketvaults$ graph deploy --studio ticketvaults
+✔ Version Label (e.g. v0.0.1) · v0.0.1
+  Skip migration: Bump mapping apiVersion from 0.0.1 to 0.0.2
+  Skip migration: Bump mapping apiVersion from 0.0.2 to 0.0.3
+  Skip migration: Bump mapping apiVersion from 0.0.3 to 0.0.4
+  Skip migration: Bump mapping apiVersion from 0.0.4 to 0.0.5
+  Skip migration: Bump mapping specVersion from 0.0.1 to 0.0.2
+✔ Apply migrations
+✔ Load subgraph from subgraph.yaml
+  Compile data source: TicketVault => build/TicketVault/TicketVault.wasm
+✔ Compile subgraph
+  Copy schema file build/schema.graphql
+  Write subgraph file build/TicketVault/abis/TicketVault.json
+  Write subgraph manifest build/subgraph.yaml
+✔ Write compiled subgraph to build/
+  Add file to IPFS build/schema.graphql
+                .. QmUUwWvWqVdf1P6QXVsKNg57TkdPzyo1Yt5bPEPdKzUVWQ
+  Add file to IPFS build/TicketVault/abis/TicketVault.json
+                .. QmNWdtncStQAZ6Fzn4tP8HQ6w6oq24t74YF3VqML7Xumi7
+  Add file to IPFS build/TicketVault/TicketVault.wasm
+                .. QmYQVWF2BYvATfB1YCe8KuziSJMrqyaJ2eXKcwHob6s9SG
+✔ Upload subgraph to IPFS
+
+Build completed: QmSEA2wejga997yaEcAxiLGyHYRjiwoAQjQEXXJXqXvjwH
+
+Deployed to https://thegraph.com/studio/subgraph/ticketvaults
+
+Subgraph endpoints:
+Queries (HTTP):     https://api.studio.thegraph.com/query/23958/ticketvaults/v0.0.1
+Subscriptions (WS): https://api.studio.thegraph.com/query/23958/ticketvaults/v0.0.1
+```
 
