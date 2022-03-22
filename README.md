@@ -43,9 +43,11 @@ _Notes of the different data to query from the smart-contrats, and notes on what
 * Total days funds safe - No hack Counter 
 
 ### Deployed SubGraph
-
-```txt
-dadogg80@HP-Spectra-X360:/mnt/c/Users/ivoga/Documents/repos/viken-blockchain-solutions/thegraph/ticketvaults$ graph deploy --studio ticketvaults
+* TicketVault data
+* 
+```js
+dadogg80@HP-Spectra-X360:/mnt/c/Users/ivoga/Documents/repos/viken-blockchain-solutions/thegraph/ticketvaults$ 
+graph deploy --studio ticketvaults
 ✔ Version Label (e.g. v0.0.1) · v0.0.1
   Skip migration: Bump mapping apiVersion from 0.0.1 to 0.0.2
   Skip migration: Bump mapping apiVersion from 0.0.2 to 0.0.3
