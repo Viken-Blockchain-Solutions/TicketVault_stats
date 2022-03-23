@@ -72,6 +72,9 @@ function addToHTML() {
     document.getElementById("output_table3_end").innerHTML = convertUnixTime(vault52End.toNumber());
 
     document.getElementById("output_stakeholders").innerHTML = (amount13 + amount26 + amount52);
+    document.getElementById("output_table1_holders").innerHTML = (amount13);
+    document.getElementById("output_table2_holders").innerHTML = (amount26);
+    document.getElementById("output_table3_holders").innerHTML = (amount52);
 
 }
 
