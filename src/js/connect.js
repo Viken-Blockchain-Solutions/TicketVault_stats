@@ -33,6 +33,7 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     const TicketVault26 = "0x1ED3181B9E5D8C93452C0AF7081502398e8610a2";
     const TicketVault52 = "0x3a01C5F9acDeaeAD1e9ac4706489132dF25dc2e9";
     
+    const CentaurifyToken = "0x08ba718F288c3b12B01146816bef9FA03cC635bc";
 
     // The Contract objects.
     ticketvault13 = new ethers.Contract(TicketVault13, ABI, provider);

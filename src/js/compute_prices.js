@@ -22,10 +22,7 @@ async function getVaultStats() {
     addToHTML();
 }
 
-/*  
-    Load an TicketVault contract address.
-    @param address TicketVault address 
-*/
+
 const getValueOf = async (totStaked) => {
     try {
         const urlPriceUSD = "https://api.coingecko.com/api/v3/simple/price?ids=centaurify&vs_currencies=usd";

@@ -1,3 +1,4 @@
+// returns the days since start staking
 function timespan() {
     const startDate = convertUnixTime(vault13Start.toNumber());
     const endDate = Date.now();
@@ -14,6 +15,7 @@ function timespan() {
     return dayCount
 }
 
+// converts a unix timestamp innto a date/time value 
 function convertUnixTime(unix) {
     let a = new Date(unix * 1000),
         year = a.getFullYear(),
@@ -23,9 +25,10 @@ function convertUnixTime(unix) {
         hour = a.getHours(),
         min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes(),
         sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
-    return `${month} ${date}, ${year}, ${hour}:${min}:${sec}`;
+    return `${month} ${date}, ${year}, ${hour}:${min}`;
 }
 
+// Formats a number into "en-US" currency value.
 var formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -35,9 +38,10 @@ var formatter = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
+// Formats a number into "en-US" number value.
 var tokensFormatter = new Intl.NumberFormat('en-US', {
     // These options are needed to round to whole numbers if that's what you want.
   //  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as 2,501)
 });
-  
+
