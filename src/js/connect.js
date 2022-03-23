@@ -56,7 +56,6 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
 
     vaultstatus = vaultInfo.status;
     stakingPeriod = vaultInfo.stakingPeriod;
-    startTimestamp = vaultInfo.startTimestamp;
     stopTimestamp = vaultInfo.stopTimestamp;
     */
    
