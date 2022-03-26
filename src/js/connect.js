@@ -14,12 +14,12 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     // A Web3Provider wraps a standard Web3 provider, which is
 
     // MetaMask requires requesting permission to connect users accounts
-    //await provider.send("eth_requestAccounts", []);
+    await provider.send("eth_requestAccounts", []);
 
     // The MetaMask plugin also allows signing transactions to
     // send ether and pay to change state within the blockchain.
     // For this, you need the account signer...
-    // const signer = provider.getSigner()
+    const signer = provider.getSigner()
 
     const TICKET_ABI = [
         "function getRewardInfo() external view returns (uint256 lastRewardUpdateTimeStamp, uint256 rewardRate, uint256 pendingVaultRewards,uint256 claimedVaultRewards, uint256 remainingVaultRewards)",
