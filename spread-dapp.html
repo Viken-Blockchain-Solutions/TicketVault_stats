@@ -27,8 +27,8 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
-        type="application/javascript"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -56,13 +56,13 @@
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-
         <li class="nav-item d-block d-lg-none">
           <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-
+      </ul>
+    </nav>
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -73,9 +73,17 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="index.html">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Viking Vaults</span>
         </a>
       </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="spread-dapp.html">
+          <i class="bi bi-send-check"></i>
+          <span>Spread - dApp</span>
+        </a>
+      </li><!-- End Spread-dApp Nav -->
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -312,7 +320,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>SPREAD dApp</h1>
+      <h1>Spread dApp</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -326,7 +334,7 @@
 
             <div class="row">
               <div class="col-lg-3">
-                <div class="card mt-3">
+                <div class="card m-10">
                   <div class="card-body">
                     <div class="d-flex m-2 justify-content-center">
                       <cite">
@@ -345,21 +353,33 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="d-flex m-5 justify-content-center">
-                          <img class="m-3" src="assets/img/icons/matic_cryptocurrency_logo_icon_131424.ico" alt="Matic Logo"/>
-                          <h5 class="card-subtitle mt-4 m-2 text-muted ">Spread your Polygon assets to multiple accounts, with one on-chain transaction.</h5>
+                          <img class="m-4" src="assets/img/icons/matic_cryptocurrency_logo_icon_131424.ico" alt="Matic Logo"/>
+                          <h5 class="card-subtitle mt-4 text-muted">Spread your Polygon assets across multiple accounts in one transaction.</h5>
                         </div>
-                        <div class="d-flex m-5 justify-content-center">
+                        <div class="d-flex m-5 justify-content-center">                            
                           <div class="col-sm-10">
-                            <label class="col-form-label">Token</label>
-                            <select class="form-select" aria-label="Default select example">
-                              <option selected>Choose a token to spread</option>
-                              <option value="0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619">ETH</option>
-                              <option value="0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6">BTC</option>
-                              <option value="0x7b9c2d37fc0B45A5Ec022D2023F18685FdA832e7">CENT</option>
-                              <option value="0xB25e20De2F2eBb4CfFD4D16a55C7B395e8a94762">REQ</option>
-                              <option value="0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270">WMATIC</option>
-                            </select>
+                            <fieldset class="row mb-3">
+                              <legend class="col-form-label col-sm-6 pt-0">Spreading Matic or tokens?</legend>
+                              <div class="col-sm-6">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="gridRadios" id="radio-asset" value="option-matic" checked>
+                                  <label class="form-check-label" for="gridRadios1">MATIC</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="gridRadios" id="radio-token" value="option2-tokens">
+                                  <label class="form-check-label" for="gridRadios2">Tokens</label>
+                                </div>
+                              </div>
+                            </fieldset>
+                            <choice id="radio-choice">
+                            </choice>
+                            <section id="spread">
+                              
+                            </section>
                           </div>
+                        </div>
+
+
                         </div>
                       </div>
                     </div>
@@ -404,6 +424,10 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/tokens.js"></script>
+  <script src="assets/js/spread.js"></script>
+  <script src="assets/js/elements.js"></script>
+
 
 
 </body>
