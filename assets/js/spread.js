@@ -8,7 +8,7 @@
     // A Web3Provider wraps a standard Web3 provider, which is
 
     // MetaMask requires requesting permission to connect users accounts
-    await provider.send("eth_requestAccounts", []);
+    //await provider.send("eth_requestAccounts", []);
 
     // The MetaMask plugin also allows signing transactions to
     // send ether and pay to change state within the blockchain.
@@ -33,10 +33,13 @@
 
     // You can also use an ENS name for the contract address
     const Spread_polygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
+    const Spread_mainnet = "0x588797504F98e3680d2FebB24e72536ddab4857A";
     
 
     // The Contract objects.
-    const spread = new ethers.Contract(Spread_polygon, ABI, provider);
-    console.log(spread);
+    const spread_poly = new ethers.Contract(Spread_polygon, ABI, provider);
+    const spread_eth =  new ethers.Contract(Spread_mainnet, ABI, provider);
+    console.log('mainnet', spread_eth);
+    console.log('polygon', spread_poly);
     console.log(signer);
 })()
