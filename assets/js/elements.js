@@ -1,52 +1,77 @@
-/* // Get access to DOM elements
 
-// radio buttons
-const gridRadios = document.querySelectorAll('gridRadios');
-
-const asset_radio = document.getElementById('radio-asset');
-const token_radio = document.getElementById('radio-token');
-
-const radio_choice = document.getElementById("radio-choice");
-
-asset_radio.addEventListener('change', (e) => {
-    if (e.target.checked) {
-        let asset = spreadAsset();
-        radio_choice.classList.add(asset)
-    } else {
-        let asset = spreadAsset();
-        radio_choice.classList.remove(asset)
-        
-    }
-})
-
-token_radio.addEventListener('change', (target) => {
-    // Append to another element:
-    document.getElementById("radio-choice").appendChild(spreadTokens()); 
-})
+function toggle() {
+  var x = document.getElementById("div1");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+var addrList = [];
+var valueList = [];
+var sum = 1;
 
 
-function spreadTokens() {
-    // create element:
-    const div = document.createElement("h4");
-    div.innerHTML = "Spread Tokens";
-
-    // Append to another element:
-    document.getElementById("radio-choice").class.remove(div);
+function setValues() {
+  var address = document.getElementById("input-address").value;
+  var amount = document.getElementById("input-value").value;
+  
+  var newRow = document.createElement("tr");
+  var newHeading = document.createElement("th");
+  var newRecipient = document.createElement("td");
+  var newValue = document.createElement("td");
+  
+  newHeading.innerHTML = sum++;
+  newRecipient.innerHTML = address;
+  newValue.innerHTML = amount;
+  
+  newRow.append(newHeading, newRecipient, newValue);
+  
+  document.getElementById("rows").appendChild(newRow);
+  document.getElementById("input-address").value = "";
+  document.getElementById("input-value").value = "";
+  
+  addToLists(address, amount);
 }
 
-function spreadAsset() {
-    const div = document.createElement("h4");
-    div.innerHTML = "Spread Asset";
+function addToLists(account, value) {
+  addrList.push((account).toString());
+  valueList.push((value).toString());
+  loading();
+  console.log(addrList, valueList);
+}
 
-    // Append to another element:
-    document.getElementById("radio-choice").appendChild(div); 
+function mockSend() {
+  sent();
+  console.log(`recipients: ${addrList}`);
+  console.log(`values: ${valueList}`);
+}
 
+function loading() {
+  const loading_message = document.getElementById("loading-message");
+  loading_message.innerHTML = "Added to spread list";
+}
+
+function sent() {
+  const loading_message = document.getElementById("loading-message");
+  const sent_message = document.getElementById("sent-message");
+  loading_message.innerHTML = "";
+  sent_message.innerHTML = "Your transaction has been sent to the network!"
 }
 
 
 
- */
+function ethereum_network() {
+  var block = document.getElementById("network-block");
+  block.innerHTML = ethereum_block;
+  console.log("choosen ethereum");
+}
 
+function matic_network() {
+  var block = document.getElementById("network-block");
+  block.innerHTML = matic_block;
+  console.log("choosen matic");
+}
 
 
 
