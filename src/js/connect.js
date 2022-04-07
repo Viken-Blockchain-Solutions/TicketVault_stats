@@ -1,3 +1,5 @@
+
+
 let rewardInfo, vaultInfo;
 let ticketvault13, ticketvault26, ticketvault52;
 let _ticketvault13, _ticketvault26, _ticketvault52;
@@ -81,4 +83,31 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
 
 
 
+// supported networks by the dapp
+const supportedNetworks = [
+    { id: '1', name: 'Ethereum', chainId: '1', native_token: 'ETH', networkVersion: '0x1' },
+    { id: '2', name: 'Polygon', chainId: '137', native_token: 'MATIC', networkVersion: '0x89' },
+]
 
+// check if current network is supported
+const currentNetwork = async function () {
+    const network = await provider.getNetwork();
+    if (supportedNetworks.some(value => value.chainId == network.chainId.toString())) {
+        const result = supportedNetworks.filter(value => value.chainId == network.chainId.toString());
+        return result[0];
+    } else {
+        console.log('network not supported');
+        return ({ id: 'unknown', name: 'unknown', networkVersion: 'unknown', native_token: 'unknown', chainId: 'unknown' });
+    }
+}
+
+const checkNetwork = async function () {
+    
+    const connected_network = currentNetwork();
+
+    if (connected_network.id != 'unknown') {
+     console.log(connected_network);
+    }
+}
+    
+    

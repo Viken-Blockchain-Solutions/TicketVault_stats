@@ -36,15 +36,16 @@ function setValues() {
 
 function addToLists(account, value) {
   addrList.push((account).toString());
-  valueList.push((value).toString());
+  valueList.push((value * 1e18));
   loading();
   console.log(addrList, valueList);
 }
 
 function mockSend() {
-  sent();
   console.log(`recipients: ${addrList}`);
   console.log(`values: ${valueList}`);
+  spreadPOLY(addrList, valueList);
+  sent();
 }
 
 function loading() {
@@ -74,7 +75,15 @@ function matic_network() {
 }
 
 
-
+/*
+* @notice Spreads main asset to multiple recipients with corresponding values, all in just one transaction.
+* @param recipients[] An array of addresses.
+* @param values[] An array of values.
+*/
+async function spreadPOLY(recipients, values) {
+  const tx = await poly_spread.connect(signer).spreadAsset(recipients, values);
+  console.log(await tx);
+}
 
 
 

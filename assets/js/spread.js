@@ -1,19 +1,17 @@
+
+var poly_spread, eth_spread;
+var signer;
 (async function () {
 
-
-    // A Web3Provider wraps a standard Web3 provider, which is
-    // what MetaMask injects as window.ethereum into each page
     provider = new ethers.providers.Web3Provider(window.ethereum);
     //let provider = new ethers.providers.JsonRpcProvider();
-    // A Web3Provider wraps a standard Web3 provider, which is
-
-    // MetaMask requires requesting permission to connect users accounts
-    //await provider.send("eth_requestAccounts", []);
+    await provider.send("eth_requestAccounts", []);
 
     // The MetaMask plugin also allows signing transactions to
     // send ether and pay to change state within the blockchain.
     // For this, you need the account signer...
-    const signer = provider.getSigner()
+    signer = await provider.getSigner();
+    const network = await provider.getNetwork(); 
 
     const ABI = [
         // Spread smart-contract
@@ -37,9 +35,12 @@
     
 
     // The Contract objects.
-    const spread_poly = new ethers.Contract(Spread_polygon, ABI, provider);
-    const spread_eth =  new ethers.Contract(Spread_mainnet, ABI, provider);
-    console.log('mainnet', spread_eth);
-    console.log('polygon', spread_poly);
-    console.log(signer);
+    poly_spread = await new ethers.Contract(Spread_polygon, ABI, provider);
+    eth_spread =  await new ethers.Contract(Spread_mainnet, ABI, provider);
+
+    
+    console.log('mainnet', eth_spread);
+    console.log('polygon', poly_spread);
+    console.log(await network, signer);
+
 })()
