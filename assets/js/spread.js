@@ -41,6 +41,8 @@ var signer;
     
     console.log('mainnet', eth_spread);
     console.log('polygon', poly_spread);
-    console.log(await network, signer);
+    console.log(await network);
+    console.log(await signer);
+
 
 })()

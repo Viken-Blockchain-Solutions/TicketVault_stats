@@ -33,7 +33,7 @@ const matic_block = `
             <form class="recipient-form" id="assets_form">
                 <div class="row gy-4 m-1">
                 <div class="col-md-6">
-                    <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="0x[A-Za-z0-9]{3}" title="Ethereum address" required>
+                    <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
                     <div id="fskey-arrow-icon" class="fskey-activator-logo fskey-icon-locked" style="top: 40px; left: 590.5px;"></div>
                 </div>
 
@@ -87,7 +87,7 @@ const ethereum_block = `
             <form class="recipient-form" id="assets_form">
                 <div class="row gy-4 m-1">
                 <div class="col-md-6">
-                    <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="0x[A-Za-z0-9]{3}" title="Ethereum address" required>
+                    <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
                     <div id="fskey-arrow-icon" class="fskey-activator-logo fskey-icon-locked" style="top: 40px; left: 590.5px;"></div>
                 </div>
 
