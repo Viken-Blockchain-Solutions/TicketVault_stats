@@ -1,3 +1,7 @@
+var addrList = [];
+var valueList = [];
+var sum = 1;
+var network = "";
 
 function toggle() {
   var x = document.getElementById("div1");
@@ -7,10 +11,7 @@ function toggle() {
     x.style.display = "none";
   }
 }
-var addrList = [];
-var valueList = [];
-var sum = 1;
-var network = "";
+
 
 
 function setValues() {
