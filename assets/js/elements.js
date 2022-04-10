@@ -10,6 +10,7 @@ function toggle() {
 var addrList = [];
 var valueList = [];
 var sum = 1;
+var network = "";
 
 
 function setValues() {
@@ -36,7 +37,7 @@ function setValues() {
 
 function addToLists(account, value) {
   addrList.push((account).toString());
-  valueList.push((value * 1e18));
+  valueList.push((value * 1e18).toString());
   loading();
   console.log(addrList, valueList);
 }
@@ -44,7 +45,11 @@ function addToLists(account, value) {
 function mockSend() {
   console.log(`recipients: ${addrList}`);
   console.log(`values: ${valueList}`);
-  spreadPOLY(addrList, valueList);
+  if (network === "matic") {
+    spreadPOLY(addrList, valueList);
+  } else {
+    spreadETH(addrList, valueList);
+  }
   sent();
 }
 
@@ -65,12 +70,14 @@ function sent() {
 function ethereum_network() {
   var block = document.getElementById("network-block");
   block.innerHTML = ethereum_block;
+  network = "eth";
   console.log("choosen ethereum");
 }
 
 function matic_network() {
   var block = document.getElementById("network-block");
   block.innerHTML = matic_block;
+  network = "matic";
   console.log("choosen matic");
 }
 
@@ -80,9 +87,20 @@ function matic_network() {
 * @param recipients[] An array of addresses.
 * @param values[] An array of values.
 */
-async function spreadPOLY(recipients, values) {
-  const tx = await poly_spread.connect(signer).spreadAsset(recipients, values);
+async function spreadPOLY(addrList, valueList) {
+  const tx = await poly_spread.connect(signer).spreadAsset(addrList, valueList);
   console.log(await tx);
+  return tx;
+}
+/*
+* @notice Spreads main asset to multiple recipients with corresponding values, all in just one transaction.
+* @param recipients[] An array of addresses.
+* @param values[] An array of values.
+*/
+async function spreadETH(addrList, valueList) {
+  const tx = await eth_spread.connect(signer).spreadAsset(addrList, valueList);
+  console.log(await tx);
+  return tx;
 }
 
 
