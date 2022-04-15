@@ -1,5 +1,3 @@
-
-
 let rewardInfo, vaultInfo;
 let ticketvault13, ticketvault26, ticketvault52;
 let _ticketvault13, _ticketvault26, _ticketvault52;
@@ -11,17 +9,17 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
 
     // A Web3Provider wraps a standard Web3 provider, which is
     // what MetaMask injects as window.ethereum into each page
-    provider = new ethers.providers.Web3Provider(window.ethereum);
+    const web3Provider = await Moralis.enableWeb3();
     //let provider = new ethers.providers.JsonRpcProvider();
     // A Web3Provider wraps a standard Web3 provider, which is
 
     // MetaMask requires requesting permission to connect users accounts
-    await provider.send("eth_requestAccounts", []);
+    await web3Provider.send("eth_requestAccounts", []);
 
     // The MetaMask plugin also allows signing transactions to
     // send ether and pay to change state within the blockchain.
     // For this, you need the account signer...
-    const signer = provider.getSigner()
+    const signer = web3Provider.getSigner()
 
     const TICKET_ABI = [
         "function getRewardInfo() external view returns (uint256 lastRewardUpdateTimeStamp, uint256 rewardRate, uint256 pendingVaultRewards,uint256 claimedVaultRewards, uint256 remainingVaultRewards)",
@@ -38,13 +36,13 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     const CentaurifyToken = "0x08ba718F288c3b12B01146816bef9FA03cC635bc";
 
     // The Contract objects.
-    ticketvault13 = new ethers.Contract(TicketVault13, ABI, provider);
-    ticketvault26 = new ethers.Contract(TicketVault26, ABI, provider);
-    ticketvault52 = new ethers.Contract(TicketVault52, ABI, provider);
+    ticketvault13 = new ethers.Contract(TicketVault13, ABI, web3Provider);
+    ticketvault26 = new ethers.Contract(TicketVault26, ABI, web3Provider);
+    ticketvault52 = new ethers.Contract(TicketVault52, ABI, web3Provider);
 
-    _ticketvault13 = new ethers.Contract(TicketVault13, TICKET_ABI, provider);
-    _ticketvault26 = new ethers.Contract(TicketVault26, TICKET_ABI, provider);
-    _ticketvault52 = new ethers.Contract(TicketVault52, TICKET_ABI, provider);
+    _ticketvault13 = new ethers.Contract(TicketVault13, TICKET_ABI, web3Provider);
+    _ticketvault26 = new ethers.Contract(TicketVault26, TICKET_ABI, web3Provider);
+    _ticketvault52 = new ethers.Contract(TicketVault52, TICKET_ABI, web3Provider);
 
     //rewardInfo = await _ticketvault13.getRewardInfo();
     vault13Info = await ticketvault13.vault();
@@ -81,8 +79,6 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     getVaultStats();
 })()
 
-
-
 // supported networks by the dapp
 const supportedNetworks = [
     { id: '1', name: 'Ethereum', chainId: '1', native_token: 'ETH', networkVersion: '0x1' },
@@ -91,7 +87,7 @@ const supportedNetworks = [
 
 // check if current network is supported
 const currentNetwork = async function () {
-    const network = await provider.getNetwork();
+    const network = await web3Provider.getNetwork();
     if (supportedNetworks.some(value => value.chainId == network.chainId.toString())) {
         const result = supportedNetworks.filter(value => value.chainId == network.chainId.toString());
         return result[0];
@@ -109,5 +105,3 @@ const checkNetwork = async function () {
      console.log(connected_network);
     }
 }
-    
-    

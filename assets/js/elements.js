@@ -1,26 +1,24 @@
-
 function toggle() {
-  var x = document.getElementById("div1");
+  let x = document.getElementById("div1");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
     x.style.display = "none";
   }
 }
-var addrList = [];
-var valueList = [];
-var sum = 1;
-var network = "";
-
+let addrList = [];
+let valueList = [];
+let sum = 1;
+let network = "";
 
 function setValues() {
-  var address = document.getElementById("input-address").value;
-  var amount = document.getElementById("input-value").value;
+  let address = document.getElementById("input-address").value;
+  let amount = document.getElementById("input-value").value;
   
-  var newRow = document.createElement("tr");
-  var newHeading = document.createElement("th");
-  var newRecipient = document.createElement("td");
-  var newValue = document.createElement("td");
+  let newRow = document.createElement("tr");
+  let newHeading = document.createElement("th");
+  let newRecipient = document.createElement("td");
+  let newValue = document.createElement("td");
   
   newHeading.innerHTML = sum++;
   newRecipient.innerHTML = address;
@@ -65,22 +63,19 @@ function sent() {
   sent_message.innerHTML = "Your transaction has been sent to the network!"
 }
 
-
-
 function ethereum_network() {
-  var block = document.getElementById("network-block");
+  let block = document.getElementById("network-block");
   block.innerHTML = ethereum_block;
   network = "eth";
   console.log("choosen ethereum");
 }
 
 function matic_network() {
-  var block = document.getElementById("network-block");
+  let block = document.getElementById("network-block");
   block.innerHTML = matic_block;
   network = "matic";
   console.log("choosen matic");
 }
-
 
 /*
 * @notice Spreads main asset to multiple recipients with corresponding values, all in just one transaction.
@@ -103,21 +98,6 @@ async function spreadETH(addrList, valueList) {
   return tx;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const addOptions = (`
 <option selected>Choose a token to spread</option>
 <option value="0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619">ETH</option>
@@ -126,6 +106,3 @@ const addOptions = (`
 <option value="0xB25e20De2F2eBb4CfFD4D16a55C7B395e8a94762">REQ</option>
 <option value="0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270">WMATIC</option>
 `);
-
-
-
