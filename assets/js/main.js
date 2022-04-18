@@ -14,8 +14,6 @@ let user = Moralis.User.current();
 if(!user) (async () => await Moralis.authenticate().then((user) => console.log(user)))();
 const logOut = async () => await Moralis.User.logOut();
 
-let web3Provider;
-
 (function() {
   "use strict";
 
