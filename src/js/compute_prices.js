@@ -32,7 +32,6 @@ async function getVaultStats() {
     addToHTML();
 }
 
-
 const getValueOf = async (totStaked) => {
     try {
         const urlPriceUSD = "https://api.coingecko.com/api/v3/simple/price?ids=centaurify&vs_currencies=usd";

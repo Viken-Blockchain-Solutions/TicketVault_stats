@@ -28,9 +28,13 @@
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
   <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
-  
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- Moralis SDK code -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
 
 </head>
 
@@ -102,41 +106,41 @@
     </div><!-- End Page Title -->
     <section class="section">
 
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="card m-10">
-                  <div class="card-body">
-                    <div class="d-flex m-2 justify-content-center">
-                      <cite">
-                        <h5 class="card-subtitle mt-4 mb-2 text-muted ">SPREAD</h5>
-                        <h6 class="card-text mb-2 text-muted">Synonym: Verb</h6>
-                        <h6 class="card-text mb-4 text-muted"><cite>to broadcast, circulate</cite></h6>
-                      </cite>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <button class="btn btn-success m-1" type="button" onclick="ethereum_network()">Ethereum</button>
-                  <button class="btn btn-primary m-1" type="button" onclick="matic_network()">Matic</button>
-                </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="card m-10">
+            <div class="card-body">
+              <div class="d-flex m-2 justify-content-center">
+                <cite">
+                  <h5 class="card-subtitle mt-4 mb-2 text-muted ">SPREAD</h5>
+                  <h6 class="card-text mb-2 text-muted">Synonym: Verb</h6>
+                  <h6 class="card-text mb-4 text-muted"><cite>to broadcast, circulate</cite></h6>
+                  </cite>
               </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-success m-1" type="button" onclick="ethereum_network()">Ethereum</button>
+            <button class="btn btn-primary m-1" type="button" onclick="matic_network()">Matic</button>
+          </div>
+        </div>
 
-          
-              <!-- Left side columns -->
-                <div class="col-lg-6">
-                  <div class="card">
-                    <div class="card-body" id="network-block">
-                    </div>
-                  </div>
-                </div>
-            
-              <div class="col-lg-3">
-                <div class="card m-10">
-                  <div class="card-body">
-                    <div class="container-fluid mt-3" >
-                      <h5 class="card-title mb-3">Spread list:</h5>
-                    <div class="row gy-4">
-                      <div class="col-md-12 text-center">
+
+        <!-- Left side columns -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body" id="network-block">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="card m-10">
+            <div class="card-body">
+              <div class="container-fluid mt-3">
+                <h5 class="card-title mb-3">Spread list:</h5>
+                <div class="row gy-4">
+                  <div class="col-md-12 text-center">
                     <div class="d-flex justify-content-center">
                       <div class="table-responsive-md" id="div1">
                         <!-- Table with hoverable rows -->
@@ -155,22 +159,22 @@
                       </div>
                     </div>
                     <button type="submit" onclick="mockSend()" class="btn btn-primary m-3">Spread</button>
-                      </div>
-
-                    </div>
-                    </div>
-                    
                   </div>
+
                 </div>
               </div>
+
             </div>
-            <!-- End Left side columns -->
           </div>
-            <!-- Right side columns -->
-            
+        </div>
+      </div>
+      <!-- End Left side columns -->
+      </div>
+      <!-- Right side columns -->
+
     </section>
 
-  
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -183,7 +187,8 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -191,14 +196,12 @@
 
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
-
+  <script src=".env"></script>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/spread.js"></script>
   <script src="assets/js/elements.js"></script>
   <script src="assets/js/tokens.js"></script>
-
-
 </body>
 
 </html>

@@ -1,8 +1,8 @@
-var myHeaders = new Headers();
+let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 // tv is short for TicketVault
-var tv13 = JSON.stringify({
+let tv13 = JSON.stringify({
     "jsonrpc": "2.0",
     "id": 0,
     "method": "alchemy_getAssetTransfers",
@@ -22,7 +22,7 @@ var tv13 = JSON.stringify({
 });
 
 // tv is short for TicketVault
-var tv26 = JSON.stringify({
+let tv26 = JSON.stringify({
     "jsonrpc": "2.0",
     "id": 0,
     "method": "alchemy_getAssetTransfers",
@@ -42,7 +42,7 @@ var tv26 = JSON.stringify({
 });
 
 // tv is short for TicketVault
-var tv52 = JSON.stringify({
+let tv52 = JSON.stringify({
     "jsonrpc": "2.0",
     "id": 0,
     "method": "alchemy_getAssetTransfers",
@@ -61,7 +61,6 @@ var tv52 = JSON.stringify({
     ]
 });
 
-
  /*    
 fetch("https://eth-mainnet.alchemyapi.io/v2/IsNndtJbkjgBEfaIkp5cF_zcGZ2eqVUd", requestOptions)
     .then(response => response.json())
@@ -70,11 +69,11 @@ fetch("https://eth-mainnet.alchemyapi.io/v2/IsNndtJbkjgBEfaIkp5cF_zcGZ2eqVUd", r
  */
 
 const getStakeholders = async (raw) => {
-    var address = "";
-    var max = 0;
-    var stakeholders = 0;
+    let address = "";
+    let max = 0;
+    let stakeholders = 0;
     
-    var requestOptions = {
+    let requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
@@ -84,7 +83,7 @@ const getStakeholders = async (raw) => {
     try {
         const alchemyapi = "https://eth-mainnet.alchemyapi.io/v2/IsNndtJbkjgBEfaIkp5cF_zcGZ2eqVUd";
         const res = await fetch(alchemyapi, requestOptions);
-        var data = await res.json();
+        let data = await res.json();
         let dict = new Object();
     
         // Get the address and stake amount of stakeholders.
@@ -104,11 +103,9 @@ const getStakeholders = async (raw) => {
             // add 1 to stakeholders.
             stakeholders++
         }
-
         return ([address, max, stakeholders]);
     
     } catch (err) {
         console.error(err);
     }
-
 }

@@ -4,6 +4,16 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+/* Moralis init code */
+const serverUrl = MORALIS_SERVER_URL;
+const appId = MORALIS_APP_ID;
+Moralis.start({ serverUrl, appId });
+
+let user = Moralis.User.current();
+if(!user) (async () => await Moralis.authenticate().then((user) => console.log(user)))();
+const logOut = async () => await Moralis.User.logOut();
+
 (function() {
   "use strict";
 
@@ -110,8 +120,8 @@
   /**
    * Initiate tooltips
    */
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+  let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 
@@ -182,7 +192,7 @@
    * Initiate TinyMCE Editor
    */
 
-  var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   tinymce.init({
     selector: 'textarea.tinymce-editor',
@@ -280,7 +290,7 @@
   /**
    * Initiate Bootstrap validation check
    */
-  var needsValidation = document.querySelectorAll('.needs-validation')
+  let needsValidation = document.querySelectorAll('.needs-validation')
 
   Array.prototype.slice.call(needsValidation)
     .forEach(function(form) {
