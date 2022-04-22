@@ -6,8 +6,8 @@
 */
 
 /* Moralis init code */
-const serverUrl = MORALIS_SERVER_URL;
-const appId = MORALIS_APP_ID;
+const serverUrl = 'https://ifwsu1awnie4.usemoralis.com:2053/server';
+const appId = 'YtIcmLhp4q3D22UNDoJqLhFCLuAbLIXLLu5IUgCD';
 Moralis.start({ serverUrl, appId });
 
 let user = Moralis.User.current();
