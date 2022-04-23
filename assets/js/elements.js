@@ -9,6 +9,7 @@ function toggle() {
 let addrList = [];
 let valueList = [];
 let sum = 1;
+let network = "";
 
 function setValues() {
   let address = document.getElementById("input-address").value;
@@ -60,28 +61,6 @@ function sent() {
   const sent_message = document.getElementById("sent-message");
   loading_message.innerHTML = "";
   sent_message.innerHTML = "Your transaction has been sent to the network!"
-}
-
-function ethereum_network() {
-  // let block = document.getElementById("network-block");
-  // block.innerHTML = ethereum_block;
-  // network = "eth";
-  // console.log("choosen ethereum");
-
-  if(network.chainId == 1) {
-    let block = document.getElementById("network-block");
-    block.innerHTML = ethereum_block;
-    console.log("hello")
-  }
-}
-
-//if connected to Mainet choose ethereum_network and add ethereum_block to html
-
-function matic_network() {
-  let block = document.getElementById("network-block");
-  block.innerHTML = matic_block;
-  network = "matic";
-  console.log("choosen matic");
 }
 
 /*

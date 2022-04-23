@@ -1,6 +1,5 @@
 let poly_spread, eth_spread;
 let signer;
-let unsubscribe;
 (async function () {
     const web3Provider = await Moralis.enableWeb3();
     //let provider = new ethers.providers.JsonRpcProvider();
@@ -12,15 +11,14 @@ let unsubscribe;
     signer = await web3Provider.getSigner();
     const network = await web3Provider.getNetwork();
 
-    unsubscribe = Moralis.onWeb3Enabled((result) => console.log(result));
-
     let block = document.getElementById("network-block");
-    if (network.chainId === 1) {
-      block.innerHTML = ethereum_block;
-    }
-    if(network.chainId === 137) {
-      block.innerHTML = matic_block;
-    }
+    if(network.chainId === 1) block.innerHTML = ethereum_block;
+    if(network.chainId === 137) block.innerHTML = matic_block;
+
+    Moralis.onChainChanged((chain) => {
+      if(chain == 0x1) block.innerHTML = ethereum_block;
+      if(chain == 0x89) block.innerHTML = matic_block;
+    });
 
     const ABI = [
         // Spread smart-contract
