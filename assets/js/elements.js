@@ -9,6 +9,7 @@ function toggle() {
 let addrList = [];
 let valueList = [];
 let sum = 1;
+let network = "";
 
 function setValues() {
   let address = document.getElementById("input-address").value;
