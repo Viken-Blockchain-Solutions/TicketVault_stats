@@ -1,7 +1,13 @@
-let poly_spread, eth_spread;
 let signer;
+
+// You can also use an ENS name for the contract address
+const spreadPolygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
+const spreadMainnet = "0x588797504F98e3680d2FebB24e72536ddab4857A";
+// const spreadRopsten = "0x2DF4402B278c737253EB1E0F7834014B19a53A65";
+
 (async function () {
-    const web3Provider = await Moralis.enableWeb3();
+    /* anyNetwork: true, to detect network switch */
+    const web3Provider = await Moralis.enableWeb3({anyNetwork: true});
     //let provider = new ethers.providers.JsonRpcProvider();
     await web3Provider.send("eth_requestAccounts", []);
 
@@ -14,36 +20,15 @@ let signer;
     let block = document.getElementById("network-block");
     if(network.chainId === 1) block.innerHTML = ethereum_block;
     if(network.chainId === 137) block.innerHTML = matic_block;
+    // if(network.chainId === 3) block.innerHTML = ropsten_block;
 
     Moralis.onChainChanged((chain) => {
       if(chain == 0x1) block.innerHTML = ethereum_block;
       if(chain == 0x89) block.innerHTML = matic_block;
+      // if(chain == 0x3) block.innerHTML = ropsten_block;
+      console.log(chain)
     });
 
-    const ABI = [
-        // Spread smart-contract
-        "function spreadAsset(address[] calldata recipients, uint256[] calldata values)",
-        "function spreadERC20(IERC20 token, address[] calldata recipients, uint256[] calldata values)",
-        "function spreadERC20Simple(IERC20 token, address[] calldata recipients, uint256[] calldata values)",
-        
-        // IERC20 smart-contract
-        "function balanceOf(address account) external view returns (uint256)",
-        "function approve(address spender, uint256 amount) external returns (bool)",
-
-        // events
-        "event Approval(address indexed owner, address indexed spender, uint256 value)"
-    ];
-
-    // You can also use an ENS name for the contract address
-    const Spread_polygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
-    const Spread_mainnet = "0x588797504F98e3680d2FebB24e72536ddab4857A";
-    
-    // The Contract objects.
-    poly_spread = await new ethers.Contract(Spread_polygon, ABI, web3Provider);
-    eth_spread =  await new ethers.Contract(Spread_mainnet, ABI, web3Provider);
-
-    console.log('mainnet', eth_spread);
-    console.log('polygon', poly_spread);
     console.log(await network);
     console.log(await signer);
 })()

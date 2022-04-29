@@ -9,7 +9,6 @@ function toggle() {
 let addrList = [];
 let valueList = [];
 let sum = 1;
-let network = "";
 
 function setValues() {
   let address = document.getElementById("input-address").value;
@@ -34,21 +33,22 @@ function setValues() {
 }
 
 function addToLists(account, value) {
-  addrList.push((account).toString());
-  valueList.push((value * 1e18).toString());
+  addrList.push(account);
+  valueList.push(Moralis.Units.ETH(value));
   loading();
   console.log(addrList, valueList);
 }
 
-function mockSend() {
+async function send() {
+  const web3Provider = await Moralis.enableWeb3();
+  const network = await web3Provider.getNetwork();
+  if (network.chainId === 137) await Moralis.executeFunction({contractAddress: spreadPolygon, ...spreadOptions});
+  if (network.chainId === 1) await Moralis.executeFunction({contractAddress: spreadMainnet, ...spreadOptions});
+  if (network.chainId === 3) await Moralis.executeFunction({contractAddress: spreadRopsten, ...spreadOptions});
+  sent();
+
   console.log(`recipients: ${addrList}`);
   console.log(`values: ${valueList}`);
-  if (network === "matic") {
-    spreadPOLY(addrList, valueList);
-  } else {
-    spreadETH(addrList, valueList);
-  }
-  sent();
 }
 
 function loading() {
@@ -65,23 +65,16 @@ function sent() {
 
 /*
 * @notice Spreads main asset to multiple recipients with corresponding values, all in just one transaction.
-* @param recipients[] An array of addresses.
-* @param values[] An array of values.
+* @param recipients[] An array of addresses. ["address","address","address"]
+* @param values[] An array of values. ["value","value","value"]
 */
-async function spreadPOLY(addrList, valueList) {
-  const tx = await poly_spread.connect(signer).spreadAsset(addrList, valueList);
-  console.log(await tx);
-  return tx;
-}
-/*
-* @notice Spreads main asset to multiple recipients with corresponding values, all in just one transaction.
-* @param recipients[] An array of addresses.
-* @param values[] An array of values.
-*/
-async function spreadETH(addrList, valueList) {
-  const tx = await eth_spread.connect(signer).spreadAsset(addrList, valueList);
-  console.log(await tx);
-  return tx;
+const spreadOptions = {
+  functionName: "spreadAsset",
+  abi: ABI,
+  params: {
+    recipients: addrList,
+    values: valueList
+  }
 }
 
 const addOptions = (`

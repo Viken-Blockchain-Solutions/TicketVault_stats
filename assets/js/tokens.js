@@ -115,3 +115,57 @@ const ethereum_block = `
         </div>
     </div>
 `
+
+// const ropsten_block = `
+//     <div class="d-flex m-5 justify-content-center">
+//         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+//         <img src="assets/img/icons/eth@2x.png" alt="Ethereum Logo"></i>
+//         <h5 class="card-subtitle m-4 text-muted">Spread your Ropsten assets across multiple accounts in one transaction.</h5>
+//         </div>
+//         </div>
+
+//         <div class="container-fluid">
+//         <div class="row">
+//         <div class="col-lg-12">
+//             <div class="card p-4">
+//             <div class="row col-md-5 m-3">
+//                 <label for="assets">Choose Ropsten asset:</label>
+//                 <select name="assets" id="assets" form="assets_form" required>
+//                 <option value="WETH">ETH</option>
+//                 <option value="WBTC">WBTC</option>
+//                 <option value="DAI">DAI</option>
+//                 <option value="CENT">CENT</option>
+//                 <option value="MATIC">MATIC</option>
+//                 </select>
+//             </div>
+//             <form class="recipient-form" id="assets_form">
+//                 <div class="row gy-4 m-1">
+//                 <div class="col-md-6">
+//                     <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
+//                     <div id="fskey-arrow-icon" class="fskey-activator-logo fskey-icon-locked" style="top: 40px; left: 590.5px;"></div>
+//                 </div>
+
+//                 <div class="col-md-4 ">
+//                     <input type="text" class="form-control" name="value" id="input-value" placeholder="Amount" required>
+//                     <div id="fskey-user-icon" class="fskey-activator-logo fskey-icon-locked" style="top: 40px; left: 590.5px;"></div>
+//                 </div>
+
+//                 <div class="col-md-12 text-center">
+//                     <div class="loading" id="loading-message"></div>
+//                     <div class="error-message" id="error-message"></div>
+//                     <div class="sent-message" id="sent-message"></div>
+
+//                     <button class="btn btn-primary m-3" onclick="setValues()">Add new recipient</button>
+//                 </div>
+
+//                 </div>
+//             </form>
+            
+//             </div>
+
+//         </div>
+
+
+//         </div>
+//     </div>
+// `
