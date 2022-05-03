@@ -10,6 +10,9 @@ let addrList = [];
 let valueList = [];
 let sum = 1;
 
+// let setValue = document.getElementById("setValues");
+// if(setValue) setValue.addEventListener("click", setValues);
+
 function setValues() {
   let address = document.getElementById("input-address").value;
   let amount = document.getElementById("input-value").value;
@@ -28,14 +31,17 @@ function setValues() {
   document.getElementById("rows").appendChild(newRow);
   document.getElementById("input-address").value = "";
   document.getElementById("input-value").value = "";
-  
+   
   addToLists(address, amount);
 }
 
-function addToLists(account, value) {
+async function addToLists(account, value) {
+  const web3Provider = await Moralis.enableWeb3();
   addrList.push(account);
-  valueList.push(Moralis.Units.ETH(value));
-  loading();
+  valueList.push(web3Provider.BigNumber.from(Moralis.Units.ETH(value)));
+
+  const loading_message = document.getElementById("loading-message");
+  loading_message.innerHTML = "Added to spread list";
   console.log(addrList, valueList);
 }
 
@@ -45,22 +51,14 @@ async function send() {
   if (network.chainId === 137) await Moralis.executeFunction({contractAddress: spreadPolygon, ...spreadOptions});
   if (network.chainId === 1) await Moralis.executeFunction({contractAddress: spreadMainnet, ...spreadOptions});
   if (network.chainId === 3) await Moralis.executeFunction({contractAddress: spreadRopsten, ...spreadOptions});
-  sent();
-
-  console.log(`recipients: ${addrList}`);
-  console.log(`values: ${valueList}`);
-}
-
-function loading() {
-  const loading_message = document.getElementById("loading-message");
-  loading_message.innerHTML = "Added to spread list";
-}
-
-function sent() {
+  
   const loading_message = document.getElementById("loading-message");
   const sent_message = document.getElementById("sent-message");
   loading_message.innerHTML = "";
   sent_message.innerHTML = "Your transaction has been sent to the network!"
+
+  console.log(`recipients: ${addrList}`);
+  console.log(`values: ${valueList}`);
 }
 
 /*
