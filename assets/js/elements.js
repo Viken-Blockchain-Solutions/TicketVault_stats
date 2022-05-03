@@ -1,3 +1,5 @@
+import {web3Provider} from "./main.js";
+
 function toggle() {
   let x = document.getElementById("div1");
   if (x.style.display === "none") {
@@ -36,7 +38,7 @@ function setValues() {
 }
 
 async function addToLists(account, value) {
-  const web3Provider = await Moralis.enableWeb3();
+  // const web3Provider = await Moralis.enableWeb3();
   addrList.push(account);
   valueList.push(web3Provider.BigNumber.from(Moralis.Units.ETH(value)));
 
@@ -46,7 +48,6 @@ async function addToLists(account, value) {
 }
 
 async function send() {
-  const web3Provider = await Moralis.enableWeb3();
   const network = await web3Provider.getNetwork();
   if (network.chainId === 137) await Moralis.executeFunction({contractAddress: spreadPolygon, ...spreadOptions});
   if (network.chainId === 1) await Moralis.executeFunction({contractAddress: spreadMainnet, ...spreadOptions});
