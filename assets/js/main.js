@@ -329,9 +329,9 @@ let web3Provider;
 
 })();
 
-async function connectWeb3() {
-  web3Provider = await Moralis.enableWeb3();
-  console.log(web3Provider);
-}
+// async function connectWeb3() {
+//   web3Provider = await Moralis.enableWeb3();
+//   console.log(web3Provider);
+// }
 
-export {web3Provider}
+// export {web3Provider}
