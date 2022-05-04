@@ -44,7 +44,7 @@ async function send() {
   const network = await web3Provider.getNetwork();
   if (network.chainId === 137) await Moralis.executeFunction({contractAddress: spreadPolygon, ...spreadOptions});
   if (network.chainId === 1) await Moralis.executeFunction({contractAddress: spreadMainnet, ...spreadOptions});
-  if (network.chainId === 3) await Moralis.executeFunction({contractAddress: spreadRopsten, ...spreadOptions});
+  // if (network.chainId === 3) await Moralis.executeFunction({contractAddress: spreadRopsten, ...spreadOptions});
   sent();
 
   console.log(`recipients: ${addrList}`);
