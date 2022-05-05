@@ -6,12 +6,18 @@ function toggle() {
     x.style.display = "none";
   }
 }
+
+function sumOf(arr) {
+  let total = 0;
+  for(let i in arr) total += arr[i];
+
+  return total;
+}
+
 let addrList = [];
 let valueList = [];
+let valsToSum = [];
 let sum = 1;
-
-// let setValue = document.getElementById("setValues");
-// if(setValue) setValue.addEventListener("click", setValues);
 
 function setValues() {
   let address = document.getElementById("input-address").value;
@@ -36,9 +42,9 @@ function setValues() {
 }
 
 async function addToLists(account, value) {
-  const web3Provider = await Moralis.enableWeb3();
   addrList.push(account);
-  valueList.push(web3Provider.BigNumber.from(Moralis.Units.ETH(value)));
+  valueList.push(Moralis.Units.ETH(value));
+  valsToSum.push(Number(Moralis.Units.ETH(value)));
 
   const loading_message = document.getElementById("loading-message");
   loading_message.innerHTML = "Added to spread list";
@@ -46,10 +52,11 @@ async function addToLists(account, value) {
 }
 
 async function send() {
+  const web3Provider = await Moralis.enableWeb3();
   const network = await web3Provider.getNetwork();
-  if (network.chainId === 137) await Moralis.executeFunction({contractAddress: spreadPolygon, ...spreadOptions});
-  if (network.chainId === 1) await Moralis.executeFunction({contractAddress: spreadMainnet, ...spreadOptions});
-  if (network.chainId === 3) await Moralis.executeFunction({contractAddress: spreadRopsten, ...spreadOptions});
+  if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadOptions});
+  if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadOptions});
+  // if (network.chainId === 3) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadRopsten, ...spreadOptions});
   
   const loading_message = document.getElementById("loading-message");
   const sent_message = document.getElementById("sent-message");

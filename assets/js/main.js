@@ -13,7 +13,6 @@ Moralis.start({ serverUrl, appId });
 let user = Moralis.User.current();
 if(!user) (async () => await Moralis.authenticate().then((user) => console.log(user)))();
 const logOut = async () => await Moralis.User.logOut();
-let web3Provider;
 
 (function() {
   "use strict";
@@ -328,10 +327,3 @@ let web3Provider;
   }
 
 })();
-
-// async function connectWeb3() {
-//   web3Provider = await Moralis.enableWeb3();
-//   console.log(web3Provider);
-// }
-
-// export {web3Provider}
