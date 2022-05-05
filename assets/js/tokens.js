@@ -30,7 +30,7 @@ const matic_block = `
                 <option value="CENT">CENT</option>
                 </select>
             </div>
-            <form class="recipient-form" id="assets_form">
+            <form class="recipient-form" id="assets_form" onsubmit="return false">
                 <div class="row gy-4 m-1">
                 <div class="col-md-6">
                     <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
@@ -84,7 +84,7 @@ const ethereum_block = `
                 <option value="MATIC">MATIC</option>
                 </select>
             </div>
-            <form class="recipient-form" id="assets_form">
+            <form class="recipient-form" id="assets_form" onsubmit="return false">
                 <div class="row gy-4 m-1">
                 <div class="col-md-6">
                     <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
@@ -138,7 +138,7 @@ const ethereum_block = `
 //                 <option value="MATIC">MATIC</option>
 //                 </select>
 //             </div>
-//             <form class="recipient-form" onsubmit="return false">
+//             <form class="recipient-form" id="assets_form" onsubmit="return false">
 //                 <div class="row gy-4 m-1">
 //                 <div class="col-md-6">
 //                     <input type="text" name="address" class="form-control" id="input-address" placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
@@ -156,7 +156,6 @@ const ethereum_block = `
 //                     <div class="sent-message" id="sent-message"></div>
 
 //                     <button class="btn btn-primary m-3" onclick="setValues()">Add new recipient</button>
-                    
 //                 </div>
 
 //                 </div>

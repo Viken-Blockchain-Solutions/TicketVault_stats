@@ -37,17 +37,16 @@ function setValues() {
   document.getElementById("rows").appendChild(newRow);
   document.getElementById("input-address").value = "";
   document.getElementById("input-value").value = "";
-   
+  
   addToLists(address, amount);
 }
 
-async function addToLists(account, value) {
+function addToLists(account, value) {
   addrList.push(account);
   valueList.push(Moralis.Units.ETH(value));
   valsToSum.push(Number(Moralis.Units.ETH(value)));
-
-  const loading_message = document.getElementById("loading-message");
-  loading_message.innerHTML = "Added to spread list";
+  loading();
+  
   console.log(addrList, valueList);
 }
 
@@ -57,14 +56,22 @@ async function send() {
   if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadOptions});
   if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadOptions});
   // if (network.chainId === 3) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadRopsten, ...spreadOptions});
-  
+  sent();
+
+  console.log(`recipients: ${addrList}`);
+  console.log(`values: ${valueList}`);
+}
+
+function loading() {
+  const loading_message = document.getElementById("loading-message");
+  loading_message.innerHTML = "Added to spread list";
+}
+
+function sent() {
   const loading_message = document.getElementById("loading-message");
   const sent_message = document.getElementById("sent-message");
   loading_message.innerHTML = "";
   sent_message.innerHTML = "Your transaction has been sent to the network!"
-
-  console.log(`recipients: ${addrList}`);
-  console.log(`values: ${valueList}`);
 }
 
 /*
