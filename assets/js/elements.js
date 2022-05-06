@@ -6,8 +6,17 @@ function toggle() {
     x.style.display = "none";
   }
 }
+
+function sumOf(arr) {
+  let total = 0;
+  for(let i in arr) total += arr[i];
+
+  return total;
+}
+
 let addrList = [];
 let valueList = [];
+let valsToSum = [];
 let sum = 1;
 
 function setValues() {
@@ -35,16 +44,18 @@ function setValues() {
 function addToLists(account, value) {
   addrList.push(account);
   valueList.push(Moralis.Units.ETH(value));
+  valsToSum.push(Number(Moralis.Units.ETH(value)));
   loading();
+  
   console.log(addrList, valueList);
 }
 
 async function send() {
   const web3Provider = await Moralis.enableWeb3();
   const network = await web3Provider.getNetwork();
-  if (network.chainId === 137) await Moralis.executeFunction({contractAddress: spreadPolygon, ...spreadOptions});
-  if (network.chainId === 1) await Moralis.executeFunction({contractAddress: spreadMainnet, ...spreadOptions});
-  // if (network.chainId === 3) await Moralis.executeFunction({contractAddress: spreadRopsten, ...spreadOptions});
+  if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadOptions});
+  if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadOptions});
+  // if (network.chainId === 3) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadRopsten, ...spreadOptions});
   sent();
 
   console.log(`recipients: ${addrList}`);
