@@ -9,11 +9,10 @@ function toggle() {
 
 function sumOf(arr) {
   let total = 0;
-  for(let i in arr) total += arr[i];
+  for(let i = 0; i < arr.length; i++) total += arr[i];
 
   return total;
 }
-
 let addrList = [];
 let valueList = [];
 let valsToSum = [];

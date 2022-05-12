@@ -101,7 +101,7 @@ const ethereum_block = `
                     <div class="error-message" id="error-message"></div>
                     <div class="sent-message" id="sent-message"></div>
 
-                    <button class="btn btn-primary m-3" onclick="setValues()">Add new recipient</button>
+                    <button id="setValues" class="btn btn-primary m-3">Add new recipient</button>
                 </div>
 
                 </div>
@@ -115,6 +115,9 @@ const ethereum_block = `
         </div>
     </div>
 `
+
+{/* <button class="btn btn-primary m-3" onclick="setValues()">Add new recipient</button> */}
+
 
 // const ropsten_block = `
 //     <div class="d-flex m-5 justify-content-center">

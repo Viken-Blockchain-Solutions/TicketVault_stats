@@ -14,6 +14,20 @@ let user = Moralis.User.current();
 if(!user) (async () => await Moralis.authenticate().then((user) => console.log(user)))();
 const logOut = async () => await Moralis.User.logOut();
 
+/** TODO: 
+ * 1. If addr and value not added
+ *      dont let user add new recipient
+ * 
+ * 2. If field with addrs and value is empty
+ *      dont let user spread
+ * 
+ * */ 
+
+/** FIXME:
+ * 
+ * 
+ */
+
 (function() {
   "use strict";
 
