@@ -8,6 +8,15 @@ function tokens() {
     }
 }
 
+/* 
+TODO:
+
+1. Add blocks into html
+2. hide div if not current chain
+3. make div appear if current chain
+
+*/
+
 const matic_block = `
     <div class="d-flex m-5 justify-content-center">
         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -100,8 +109,7 @@ const ethereum_block = `
                     <div class="loading" id="loading-message"></div>
                     <div class="error-message" id="error-message"></div>
                     <div class="sent-message" id="sent-message"></div>
-
-                    <button id="setValues" class="btn btn-primary m-3">Add new recipient</button>
+                    <button class="btn btn-primary m-3" onclick="setValues()">Add new recipient</button>
                 </div>
 
                 </div>

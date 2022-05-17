@@ -18,9 +18,16 @@ let valueList = [];
 let valsToSum = [];
 let sum = 1;
 
+/* 
+FIXME:
+
+1. If address/value is incorrect, alert users
+*/
+
 function setValues() {
   let address = document.getElementById("input-address").value;
   let amount = document.getElementById("input-value").value;
+  if((address && amount) == ("")) throw alert('Please input the address and value');
   
   let newRow = document.createElement("tr");
   let newHeading = document.createElement("th");
