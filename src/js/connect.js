@@ -1,4 +1,9 @@
+import {getStats} from './vaults/helpers.js';
+import {VIKING_ABI} from './vaults/ABI.js';
+import {getVaultStats} from './compute_prices.js';
+
 let rewardInfo, vaultInfo;
+let totalVault13Shares;
 let ticketvault13, ticketvault26, ticketvault52;
 let _ticketvault13, _ticketvault26, _ticketvault52;
 let lastRewardUpdateTimeStamp, rewardRate;
@@ -6,20 +11,8 @@ let pendingVaultRewards, claimedVaultRewards, remainingVaultRewards;
 let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards, totalVaultShares;
 
 (async function () {
-
-    // A Web3Provider wraps a standard Web3 provider, which is
-    // what MetaMask injects as window.ethereum into each page
     const web3Provider = await Moralis.enableWeb3();
-    //let provider = new ethers.providers.JsonRpcProvider();
-    // A Web3Provider wraps a standard Web3 provider, which is
-
-    // MetaMask requires requesting permission to connect users accounts
     await web3Provider.send("eth_requestAccounts", []);
-
-    // The MetaMask plugin also allows signing transactions to
-    // send ether and pay to change state within the blockchain.
-    // For this, you need the account signer...
-    const signer = web3Provider.getSigner()
 
     const TICKET_ABI = [
         "function getRewardInfo() external view returns (uint256 lastRewardUpdateTimeStamp, uint256 rewardRate, uint256 pendingVaultRewards,uint256 claimedVaultRewards, uint256 remainingVaultRewards)",
@@ -45,35 +38,24 @@ let vaultstatus, stakingPeriod, startTimestamp, stopTimestamp, totalVaultRewards
     _ticketvault52 = new ethers.Contract(TicketVault52, TICKET_ABI, web3Provider);
 
     //rewardInfo = await _ticketvault13.getRewardInfo();
-    vault13Info = await ticketvault13.vault();
-    vault26Info = await ticketvault26.vault();
-    vault52Info = await ticketvault52.vault();
-
-    /* lastRewardUpdateTimeStamp = rewardInfo.lastRewardUpdateTimeStamp;
-    rewardRate = rewardInfo.rewardRate;
-    pendingVaultRewards = rewardInfo.pendingVaultRewards;
-    claimedVaultRewards = rewardInfo.claimedVaultRewards;
-    remainingVaultRewards = rewardInfo.remainingVaultRewards;
-
-    vaultstatus = vaultInfo.status;
-    stakingPeriod = vaultInfo.stakingPeriod;
-    stopTimestamp = vaultInfo.stopTimestamp;
-    */
+    const vault13Info = await ticketvault13.vault();
+    const vault26Info = await ticketvault26.vault();
+    const vault52Info = await ticketvault52.vault();
    
-    totalVault13Rewards = vault13Info.totalVaultRewards;
+    let totalVault13Rewards = vault13Info.totalVaultRewards;
     totalVault13Shares = vault13Info.totalVaultShares; 
-    vault13Start = vault13Info.startTimestamp;
-    vault13End = vault13Info.stopTimestamp;
-    // console.log(vault13Start);
+    let vault13Start = vault13Info.startTimestamp;
+    let vault13End = vault13Info.stopTimestamp;
+    //console.log(vault13Start);
     
-    totalVault26Rewards = vault26Info.totalVaultRewards;
-    totalVault26Shares = vault26Info.totalVaultShares; 
-    vault26End = vault26Info.stopTimestamp;
+    const totalVault26Rewards = vault26Info.totalVaultRewards;
+    const totalVault26Shares = vault26Info.totalVaultShares; 
+    let vault26End = vault26Info.stopTimestamp;
     // console.log(totalVault26Rewards.toString());
     
-    totalVault52Rewards = vault52Info.totalVaultRewards;
-    totalVault52Shares = vault52Info.totalVaultShares; 
-    vault52End = vault52Info.stopTimestamp;
+    let totalVault52Rewards = vault52Info.totalVaultRewards;
+    let totalVault52Shares = vault52Info.totalVaultShares; 
+    let vault52End = vault52Info.stopTimestamp;
     // console.log(totalVault52Rewards.toString());
 
     getVaultStats();
@@ -105,3 +87,5 @@ const checkNetwork = async function () {
      console.log(connected_network);
     }
 }
+
+export {totalVault13Shares};

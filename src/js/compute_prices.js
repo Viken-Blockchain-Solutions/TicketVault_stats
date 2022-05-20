@@ -1,3 +1,5 @@
+import {totalVault13Shares} from './connect.js';
+
 let valOf13, valOf26, valOf52;
 let vault13Shares, vault26Shares, vault52Shares;
 let holders13, holders26, holders52;
@@ -78,4 +80,4 @@ function addToHTML() {
 }
 
 
-
+export {getVaultStats};
