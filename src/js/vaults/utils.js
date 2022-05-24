@@ -17,7 +17,7 @@ let formatter = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
-// converts a unix timestamp innto a date/time value 
+// converts a unix timestamp into a date/time value 
 function convertUnixTime(unix) {
   let a = new Date(unix * 1000),
       year = a.getFullYear(),
@@ -45,4 +45,16 @@ async function returnVaultStats(chain, month) {
   return (list);
 }
 
-export { tokensFormatter, formatter, convertUnixTime, returnVaultStats };
+const getValueOf = async (value) => {
+  const urlPriceUSD = "https://api.coingecko.com/api/v3/simple/price?ids=centaurify&vs_currencies=usd";
+  try {
+      const res = await fetch(urlPriceUSD);
+      const data = await res.json();
+      return (value * data.centaurify.usd);
+  } catch (err) {
+      console.error(err);
+  }
+}
+
+
+export { tokensFormatter, formatter, convertUnixTime, returnVaultStats, getValueOf };
