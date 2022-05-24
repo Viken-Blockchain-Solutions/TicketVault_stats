@@ -1,14 +1,14 @@
 import { VIKING_ABI } from './ABI.js';
 
 // Formats a number into "en-US" number value.
-let tokensFormatter = new Intl.NumberFormat('en-US', {
+const tokensFormatter = new Intl.NumberFormat('en-US', {
     // These options are needed to round to whole numbers if that's what you want.
   //  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as 2,501)
 });
 
 // Formats a number into "en-US" currency value.
-let formatter = new Intl.NumberFormat('en-US', {
+const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   
@@ -18,8 +18,8 @@ let formatter = new Intl.NumberFormat('en-US', {
 });
 
 // converts a unix timestamp into a date/time value 
-function convertUnixTime(unix) {
-  let a = new Date(unix * 1000),
+const convertUnixTime = (time) => {
+  let a = new Date(time * 1000),
       year = a.getFullYear(),
       months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
       month = months[a.getMonth()],
@@ -30,7 +30,7 @@ function convertUnixTime(unix) {
   return `${month} ${date}, ${year}, ${hour}:${min}`;
 }
 
-async function returnVaultStats(chain, month) {
+const getVaultStats = async (chain, month) => {
   let list = [];
   for (let i = 0; i < month[i]; i++) {
       const options = {
@@ -45,7 +45,7 @@ async function returnVaultStats(chain, month) {
   return (list);
 }
 
-const getValueOf = async (value) => {
+const getValue = async (value) => {
   const urlPriceUSD = "https://api.coingecko.com/api/v3/simple/price?ids=centaurify&vs_currencies=usd";
   try {
       const res = await fetch(urlPriceUSD);
@@ -56,5 +56,4 @@ const getValueOf = async (value) => {
   }
 }
 
-
-export { tokensFormatter, formatter, convertUnixTime, returnVaultStats, getValueOf };
+export { tokensFormatter, formatter, getVaultStats, getValue, convertUnixTime };

@@ -1,10 +1,19 @@
 import { eth_addresses, bsc_addresses } from "./addresses.js";
-import { tokensFormatter, formatter, returnVaultStats, getValueOf } from "./utils.js";
+import { deposit_topic } from "./constants.js";
+import { 
+    tokensFormatter,
+    formatter,
+    getVaultStats,
+    getValue,
+    convertUnixTime
+} from "./utils.js";
 
-async function getTotalVaultStats() {
-    let april_stats = await returnVaultStats("eth", eth_addresses["april"]);
-    let may_stats = await returnVaultStats("eth", eth_addresses["may"]);
-    let bsc_may_stats = await returnVaultStats("bsc", bsc_addresses["may"]);
+
+let april_stats = await getVaultStats("eth", eth_addresses["april"]);
+let may_stats = await getVaultStats("eth", eth_addresses["may"]);
+let bsc_may_stats = await getVaultStats("bsc", bsc_addresses["may"]);
+
+const getTotalVaultStats = async () => {    
 
     /**
      * Total amount of CENT staked in all VikingVaults combined.
@@ -52,10 +61,40 @@ async function getTotalVaultStats() {
     const totals = [
         tokensFormatter.format(total_shares),
         tokensFormatter.format(total_rewards),
-        formatter.format(await getValueOf((total_shares + total_rewards)))
+        formatter.format(await getValue((total_shares + total_rewards)))
     ]
 
     return totals;
 }
 
-export { getTotalVaultStats };
+const getStakers = async (address) => {
+    let contractAddress = address;
+
+    const options = {
+    address: contractAddress,
+    chain: "eth",
+    topic0: deposit_topic,
+    }
+
+    const logs = await Moralis.Web3API.native.getLogsByAddress(options);
+    return logs.result[0]['topic1'];
+}
+
+const timespan = (time) => {
+    const startDate = convertUnixTime(time);
+    const endDate = Date.now();
+  
+    const start = new Date(startDate)
+    const end = new Date(endDate)
+    let dayCount = 0
+  
+    while (end > start) {
+      dayCount++
+      start.setDate(start.getDate() + 1)
+    }
+    return dayCount
+}
+
+console.log(await getStakers(eth_addresses['april'][0]))
+
+export { getTotalVaultStats, timespan, april_stats, may_stats, bsc_may_stats, getStakers };
