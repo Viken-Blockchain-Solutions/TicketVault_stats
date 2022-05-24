@@ -67,17 +67,27 @@ const getTotalVaultStats = async () => {
     return totals;
 }
 
-const getStakers = async (address) => {
-    let contractAddress = address;
+const getStakers = async (contractAddress, network, topic) => {
+    let dict = new Object();
 
     const options = {
     address: contractAddress,
-    chain: "eth",
-    topic0: deposit_topic,
+    chain: network,
+    topic0: topic,
     }
 
     const logs = await Moralis.Web3API.native.getLogsByAddress(options);
-    return logs.result[0]['topic1'];
+ 
+
+    for (let i = 0; i < logs.total; i++) {               
+        let from = logs.result[i].topic1;
+        
+        if (from in dict) continue;
+        else dict[from] = from;
+    }
+    console.log(dict);
+
+    return dict;
 }
 
 const timespan = (time) => {
@@ -95,6 +105,6 @@ const timespan = (time) => {
     return dayCount
 }
 
-console.log(await getStakers(eth_addresses['april'][0]))
+await getStakers(eth_addresses['april'][0], 'eth', deposit_topic);
 
 export { getTotalVaultStats, timespan, april_stats, may_stats, bsc_may_stats, getStakers };
