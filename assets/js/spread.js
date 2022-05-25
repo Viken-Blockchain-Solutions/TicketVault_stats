@@ -2,7 +2,7 @@ let signer;
 
 // You can also use an ENS name for the contract address
 const spreadPolygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
-const spreadMainnet = "0x588797504F98e3680d2FebB24e72536ddab4857A";
+const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 // const spreadRopsten = "0x2DF4402B278c737253EB1E0F7834014B19a53A65";
 
 (async function () {

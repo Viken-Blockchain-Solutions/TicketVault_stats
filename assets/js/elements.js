@@ -18,12 +18,6 @@ let valueList = [];
 let valsToSum = [];
 let sum = 1;
 
-/* 
-FIXME:
-
-1. If address/value is incorrect, alert users
-*/
-
 function setValues() {
   let address = document.getElementById("input-address").value;
   let amount = document.getElementById("input-value").value;

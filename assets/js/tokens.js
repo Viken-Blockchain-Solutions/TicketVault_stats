@@ -8,15 +8,6 @@ function tokens() {
     }
 }
 
-/* 
-TODO:
-
-1. Add blocks into html
-2. hide div if not current chain
-3. make div appear if current chain
-
-*/
-
 const matic_block = `
     <div class="d-flex m-5 justify-content-center">
         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
