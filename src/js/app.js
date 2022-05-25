@@ -1,7 +1,13 @@
-import { getTotalVaultStats, timespan } from './vaults/helpers.js';
+import { 
+    getTotalVaultStats,
+    getTotalStakeholders,
+    timespan
+} from './vaults/helpers.js';
 
 (async () => {
     const stats = await getTotalVaultStats();
+    const holders = await getTotalStakeholders();
+    console.log(holders);
     let days = timespan(1647608215);
     
     document.getElementById("output_totstaked").innerHTML = stats[0];

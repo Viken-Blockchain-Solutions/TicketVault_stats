@@ -5,6 +5,7 @@ import {
     formatter,
     getVaultStats,
     getValue,
+    get_event_data,
     convertUnixTime
 } from "./utils.js";
 
@@ -12,6 +13,9 @@ import {
 let april_stats = await getVaultStats("eth", eth_addresses["april"]);
 let may_stats = await getVaultStats("eth", eth_addresses["may"]);
 let bsc_may_stats = await getVaultStats("bsc", bsc_addresses["may"]);
+
+let april_deposit_events = await get_event_data("eth", eth_addresses["april"], deposit_topic);
+console.log(april_deposit_events[2][1]["total"])
 
 const getTotalVaultStats = async () => {    
 
@@ -67,27 +71,11 @@ const getTotalVaultStats = async () => {
     return totals;
 }
 
-const getStakers = async (contractAddress, network, topic) => {
-    let dict = new Object();
-
-    const options = {
-    address: contractAddress,
-    chain: network,
-    topic0: topic,
+const getTotalStakeholders = async () => {
+    for(let i = 0; i < april_deposit_events[2][1]["total"]; i++) {
+        let user = await april_deposit_events[2][1]["result"][i].data.user;
+        console.log(user);
     }
-
-    const logs = await Moralis.Web3API.native.getLogsByAddress(options);
- 
-
-    for (let i = 0; i < logs.total; i++) {               
-        let from = logs.result[i].topic1;
-        
-        if (from in dict) continue;
-        else dict[from] = from;
-    }
-    console.log(dict);
-
-    return dict;
 }
 
 const timespan = (time) => {
@@ -105,6 +93,4 @@ const timespan = (time) => {
     return dayCount
 }
 
-await getStakers(eth_addresses['april'][0], 'eth', deposit_topic);
-
-export { getTotalVaultStats, timespan, april_stats, may_stats, bsc_may_stats, getStakers };
+export { getTotalVaultStats, getTotalStakeholders, timespan };

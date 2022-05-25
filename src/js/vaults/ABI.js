@@ -1,8 +1,21 @@
 /// { ABI.js } contains the ABI for the Vaults.
 
-const _ABI = [
-    "function getRewardInfo() external view returns (uint256 lastRewardUpdateTimeStamp, uint256 rewardRate, uint256 pendingVaultRewards,uint256 claimedVaultRewards, uint256 remainingVaultRewards)",
-];
+const EVENTS_ABI = {
+    "anonymous":false,
+    "inputs":[{
+        "indexed":true,
+        "internalType":"address",
+        "name":"user",
+        "type":"address"
+    }, {
+        "indexed":false,
+        "internalType":"uint256",
+        "name":"amount",
+        "type":"uint256"
+    }],
+    "name":"Deposit",
+    "type":"event"
+};
 
 const TICKET_ABI = [{
     "inputs": [],
@@ -68,4 +81,4 @@ const VIKING_ABI = [{
     "type": "function"
 }];
 
-export {_ABI, VIKING_ABI, TICKET_ABI};
+export {EVENTS_ABI, VIKING_ABI, TICKET_ABI};

@@ -1,4 +1,4 @@
-import { VIKING_ABI } from './ABI.js';
+import { VIKING_ABI, EVENTS_ABI } from './ABI.js';
 
 // Formats a number into "en-US" number value.
 const tokensFormatter = new Intl.NumberFormat('en-US', {
@@ -33,14 +33,14 @@ const convertUnixTime = (time) => {
 const getVaultStats = async (chain, month) => {
   let list = [];
   for (let i = 0; i < month[i]; i++) {
-      const options = {
-          chain: chain,
-          address: month[i],
-          function_name: "vault",
-          abi: VIKING_ABI
-      }
-      let res = await Moralis.Web3API.native.runContractFunction(options);
-      list.push([options.chain,res]);
+    const options = {
+        chain: chain,
+        address: month[i],
+        function_name: "vault",
+        abi: VIKING_ABI
+    }
+    let res = await Moralis.Web3API.native.runContractFunction(options);
+    list.push([options.chain, res]);
   }
   return (list);
 }
@@ -56,4 +56,19 @@ const getValue = async (value) => {
   }
 }
 
-export { tokensFormatter, formatter, getVaultStats, getValue, convertUnixTime };
+const get_event_data = async (chain, month, topic) => {
+  let list = [];
+  for (let i = 0; i < month[i]; i++) {
+    const options = {
+        chain: chain,
+        address: month[i],
+        topic: topic,
+        abi: EVENTS_ABI,
+    };
+    let res = await Moralis.Web3API.native.getContractEvents(options);
+    list.push([options.chain, res]);
+  }
+  return (list);
+}
+
+export { tokensFormatter, formatter, getVaultStats, getValue, get_event_data , convertUnixTime };
