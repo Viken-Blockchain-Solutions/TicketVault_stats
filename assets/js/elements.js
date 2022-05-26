@@ -9,11 +9,10 @@ function toggle() {
 
 function sumOf(arr) {
   let total = 0;
-  for(let i in arr) total += arr[i];
+  for(let i = 0; i < arr.length; i++) total += arr[i];
 
   return total;
 }
-
 let addrList = [];
 let valueList = [];
 let valsToSum = [];
@@ -22,6 +21,7 @@ let sum = 1;
 function setValues() {
   let address = document.getElementById("input-address").value;
   let amount = document.getElementById("input-value").value;
+  if((address && amount) == ("")) throw alert('Please input the address and value');
   
   let newRow = document.createElement("tr");
   let newHeading = document.createElement("th");
@@ -55,7 +55,6 @@ async function send() {
   const network = await web3Provider.getNetwork();
   if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadOptions});
   if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadOptions});
-  // if (network.chainId === 3) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadRopsten, ...spreadOptions});
   sent();
 
   console.log(`recipients: ${addrList}`);
