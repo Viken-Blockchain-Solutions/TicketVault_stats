@@ -3,7 +3,6 @@ let signer;
 // You can also use an ENS name for the contract address
 const spreadPolygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
-// const spreadRopsten = "0x2DF4402B278c737253EB1E0F7834014B19a53A65";
 
 (async function () {
     /* anyNetwork: true, to detect network switch */
@@ -20,12 +19,10 @@ const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
     let block = document.getElementById("network-block");
     if(network.chainId === 1) block.innerHTML = ethereum_block;
     if(network.chainId === 137) block.innerHTML = matic_block;
-    // if(network.chainId === 3) block.innerHTML = ropsten_block;
 
     Moralis.onChainChanged((chain) => {
       if(chain == 0x1) block.innerHTML = ethereum_block;
       if(chain == 0x89) block.innerHTML = matic_block;
-      // if(chain == 0x3) block.innerHTML = ropsten_block;
       console.log(chain)
     });
 
