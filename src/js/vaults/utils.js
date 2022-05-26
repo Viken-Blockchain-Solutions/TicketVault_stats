@@ -56,19 +56,19 @@ const getValue = async (value) => {
   }
 }
 
-const get_event_data = async (chain, month, topic) => {
-  let list = [];
-  for (let i = 0; i < month[i]; i++) {
-    const options = {
-        chain: chain,
-        address: month[i],
-        topic: topic,
-        abi: EVENTS_ABI,
-    };
-    let res = await Moralis.Web3API.native.getContractEvents(options);
-    list.push([options.chain, res]);
+  const get_event_data = async (chain, month, topic) => {
+    let list = [];
+    for (let i = 0; i < month[i]; i++) {
+      const options = {
+          chain: chain,
+          address: month[i],
+          topic: topic,
+          abi: EVENTS_ABI,
+      };
+      let res = await Moralis.Web3API.native.getContractEvents(options);
+      list.push([options.chain, res]);
+    }
+    return (list);
   }
-  return (list);
-}
 
 export { tokensFormatter, formatter, getVaultStats, getValue, get_event_data , convertUnixTime };

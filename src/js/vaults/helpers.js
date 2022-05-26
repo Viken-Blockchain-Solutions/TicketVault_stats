@@ -93,4 +93,31 @@ const timespan = (time) => {
     return dayCount
 }
 
+// supported networks by the dapp
+const supportedNetworks = [
+    { id: '1', name: 'Ethereum', chainId: '1', native_token: 'ETH', networkVersion: '0x1' },
+    { id: '2', name: 'Polygon', chainId: '137', native_token: 'MATIC', networkVersion: '0x89' },
+]
+
+// check if current network is supported
+const currentNetwork = async function () {
+    const network = await web3Provider.getNetwork();
+    if (supportedNetworks.some(value => value.chainId == network.chainId.toString())) {
+        const result = supportedNetworks.filter(value => value.chainId == network.chainId.toString());
+        return result[0];
+    } else {
+        console.log('network not supported');
+        return ({ id: 'unknown', name: 'unknown', networkVersion: 'unknown', native_token: 'unknown', chainId: 'unknown' });
+    }
+}
+
+const checkNetwork = async function () {
+    
+    const connected_network = currentNetwork();
+
+    if (connected_network.id != 'unknown') {
+     console.log(connected_network);
+    }
+}
+
 export { getTotalVaultStats, getTotalStakeholders, timespan };
