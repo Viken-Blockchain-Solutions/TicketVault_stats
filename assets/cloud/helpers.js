@@ -1,27 +1,41 @@
-import { eth_addresses, bsc_addresses } from "./addresses.js";
-import { deposit_topic } from "./constants.js";
-import { 
-    tokensFormatter,
-    formatter,
-    getVaultStats,
-    getValue,
-    get_event_data,
-    convertUnixTime
-} from "./utils.js";
+async function vaultStats(chain, address) {
+    let list = [];
+    for(let i = 0; i < address[i]; i++) {
+        const options = {
+            chain: chain,
+            address: address[i],
+            function_name: "vault",
+            abi: VIKING_ABI
+        }
+        let res = await Moralis.Web3API.native.runContractFunction(options);
+        list.push(res);
+    }
+    
+    return list;
+}
 
+async function vaultTotals(list) {
+    let shares = [];
+    let rewards = [];
 
-let april_stats = await getVaultStats("eth", eth_addresses["april"]);
-let may_stats = await getVaultStats("eth", eth_addresses["may"]);
-let bsc_may_stats = await getVaultStats("bsc", bsc_addresses["may"]);
+    for(let i = 0; i < list.length; i++) {
+        let share = list[i][4];
+        let reward = list[i][5];
 
-let april_deposit_events = await get_event_data("eth", eth_addresses["april"], deposit_topic);
-console.log(april_deposit_events[2][1]["total"])
+        shares.push(share / 1e18);
+        rewards.push(reward / 1e18);
+    }
 
+    let totShares = await sumArray(shares);
+    let totRewards = await sumArray(rewards);
+
+    return [totRewards,totShares];
+}
+
+/* 
 const getTotalVaultStats = async () => {    
 
-    /**
-     * Total amount of CENT staked in all VikingVaults combined.
-     */
+
     let april_totalVaultShares =
         Number(april_stats[0][1]["totalVaultShares"]) +
         Number(april_stats[1][1]["totalVaultShares"]) +
@@ -35,9 +49,6 @@ const getTotalVaultStats = async () => {
         Number(bsc_may_stats[1][1]["totalVaultShares"]) +
         Number(bsc_may_stats[2][1]["totalVaultShares"]);
 
-    /**
-     * Total amount of CENT rewards in all VikingVaults combined.
-     */
     let april_totalVaultRewards =
         Number(april_stats[0][1]["totalVaultRewards"]) +
         Number(april_stats[1][1]["totalVaultRewards"]) +
@@ -76,21 +87,45 @@ const getTotalStakeholders = async () => {
         let user = await april_deposit_events[2][1]["result"][i].data.user;
         console.log(user);
     }
-}
+       /*
+    let vaults = [];
+    let staker = [];
+    let amount = [];
 
-const timespan = (time) => {
+     for (let i = 0; i < 10; i++){
+    //return vaultAddresses[0].ethereum[0];
+        const options = {
+            chain: 'eth',
+            address: vaultAddresses[i].ethereum[i],
+            topic: '0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c',
+            abi: EVENTS_ABI,
+        };
+        let res = await Moralis.Web3API.native.getContractEvents(options);
+    
+        for (let k = 0; k < res.total; k++){
+            //if(staker.indexOf(res.result[k].data['user']) != -1){ continue };	
+            staker.push(res.result[k].data['user']);
+            amount.push(res.result[k].data['amount']);
+            let stakers = staker.length;
+            vaults.push([stakers, staker, amount]);
+        }
+    }
+    return res; 
+} */
+
+function timespan(time) {
     const startDate = convertUnixTime(time);
     const endDate = Date.now();
-  
-    const start = new Date(startDate)
-    const end = new Date(endDate)
-    let dayCount = 0
-  
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    let dayCount = 0;
+
     while (end > start) {
-      dayCount++
-      start.setDate(start.getDate() + 1)
+        dayCount++;
+        start.setDate(start.getDate() + 1);
     }
-    return dayCount
+    return dayCount;
 }
 
 // supported networks by the dapp
@@ -119,5 +154,3 @@ const checkNetwork = async function () {
      console.log(connected_network);
     }
 }
-
-export { getTotalVaultStats, getTotalStakeholders, timespan };

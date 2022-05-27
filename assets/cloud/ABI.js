@@ -80,5 +80,3 @@ const VIKING_ABI = [{
     "stateMutability": "view",
     "type": "function"
 }];
-
-export {EVENTS_ABI, VIKING_ABI, TICKET_ABI};
