@@ -32,86 +32,15 @@ async function vaultTotals(list) {
     return [totRewards,totShares];
 }
 
-/* 
-const getTotalVaultStats = async () => {    
+async function getStats(list) {
+    const eth = vaultAddresses[0].ethereum;
+    const bsc = vaultAddresses[1].binance;
 
+    const eth_vaults = await vaultStats('eth', eth);
+    const bsc_vaults = await vaultStats('bsc', bsc);
 
-    let april_totalVaultShares =
-        Number(april_stats[0][1]["totalVaultShares"]) +
-        Number(april_stats[1][1]["totalVaultShares"]) +
-        Number(april_stats[2][1]["totalVaultShares"]);
-    let may_totalVaultShares =
-        Number(may_stats[0][1]["totalVaultShares"]) +
-        Number(may_stats[1][1]["totalVaultShares"]) +
-        Number(may_stats[2][1]["totalVaultShares"]);
-    let bsc_may_totalVaultShares =
-        Number(bsc_may_stats[0][1]["totalVaultShares"]) +
-        Number(bsc_may_stats[1][1]["totalVaultShares"]) +
-        Number(bsc_may_stats[2][1]["totalVaultShares"]);
-
-    let april_totalVaultRewards =
-        Number(april_stats[0][1]["totalVaultRewards"]) +
-        Number(april_stats[1][1]["totalVaultRewards"]) +
-        Number(april_stats[2][1]["totalVaultRewards"]);
-    let may_totalVaultRewards =
-        Number(may_stats[0][1]["totalVaultRewards"]) +
-        Number(may_stats[1][1]["totalVaultRewards"]) +
-        Number(may_stats[2][1]["totalVaultRewards"]);
-    let bsc_may_totalVaultRewards =
-        Number(bsc_may_stats[0][1]["totalVaultRewards"]) +
-        Number(bsc_may_stats[1][1]["totalVaultRewards"]) +
-        Number(bsc_may_stats[2][1]["totalVaultRewards"]);
-
-    let total_shares = (
-        april_totalVaultShares +
-        may_totalVaultShares +
-        bsc_may_totalVaultShares) /
-        10 ** 18;
-    let total_rewards = (
-        april_totalVaultRewards +
-        may_totalVaultRewards +
-        bsc_may_totalVaultRewards) /
-        10 ** 18;
-
-    const totals = [
-        tokensFormatter.format(total_shares),
-        tokensFormatter.format(total_rewards),
-        formatter.format(await getValue((total_shares + total_rewards)))
-    ]
-
-    return totals;
+    return [eth_vaults, bsc_vaults];
 }
-
-const getTotalStakeholders = async () => {
-    for(let i = 0; i < april_deposit_events[2][1]["total"]; i++) {
-        let user = await april_deposit_events[2][1]["result"][i].data.user;
-        console.log(user);
-    }
-       /*
-    let vaults = [];
-    let staker = [];
-    let amount = [];
-
-     for (let i = 0; i < 10; i++){
-    //return vaultAddresses[0].ethereum[0];
-        const options = {
-            chain: 'eth',
-            address: vaultAddresses[i].ethereum[i],
-            topic: '0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c',
-            abi: EVENTS_ABI,
-        };
-        let res = await Moralis.Web3API.native.getContractEvents(options);
-    
-        for (let k = 0; k < res.total; k++){
-            //if(staker.indexOf(res.result[k].data['user']) != -1){ continue };	
-            staker.push(res.result[k].data['user']);
-            amount.push(res.result[k].data['amount']);
-            let stakers = staker.length;
-            vaults.push([stakers, staker, amount]);
-        }
-    }
-    return res; 
-} */
 
 function timespan(time) {
     const startDate = convertUnixTime(time);
@@ -154,3 +83,5 @@ const checkNetwork = async function () {
      console.log(connected_network);
     }
 }
+
+

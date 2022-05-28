@@ -1,8 +1,8 @@
-Moralis.Cloud.define("depositEvents", async (request) => {
-
+Moralis.Cloud.define("timespan", async (request) => {
+    return timespan(1647608215);
 });
-  
-Moralis.Cloud.define("vaultStats", async (request) => {
+
+Moralis.Cloud.define("getTotals", async (request) => {
     const eth = vaultAddresses[0].ethereum;
     const bsc = vaultAddresses[1].binance;
 
@@ -14,8 +14,12 @@ Moralis.Cloud.define("vaultStats", async (request) => {
 
     const total_reward = bsc_totals[0] + eth_totals[0];
     const total_shares = bsc_totals[1] + eth_totals[1];
-    const total_tokens = total_shares + total_reward;
+    const total_value = tokensFormatter.format(total_shares + total_reward);
+    const price = await getPrice();
 
+    return [total_reward, total_shares, total_value, price];
+});
 
-    return [total_reward, total_shares, getValue(total_tokens)];
+Moralis.Cloud.define("getVaultStats", async (request) => {
+    return await getStats();
 });
