@@ -14,12 +14,18 @@ Moralis.Cloud.define("getTotals", async (request) => {
 
     const total_reward = bsc_totals[0] + eth_totals[0];
     const total_shares = bsc_totals[1] + eth_totals[1];
-    const total_value = tokensFormatter.format(total_shares + total_reward);
-    const price = await getPrice();
+    const total_value = (total_shares + total_reward);
 
-    return [total_reward, total_shares, total_value, price];
+    return [tokensFormatter.format(total_reward), tokensFormatter.format(total_shares), total_value];
 });
 
 Moralis.Cloud.define("getVaultStats", async (request) => {
     return await getStats();
 });
+
+Moralis.Cloud.define("loadDB", async (request) => {
+    let data = await loadVaults();
+    return data;
+})
+
+

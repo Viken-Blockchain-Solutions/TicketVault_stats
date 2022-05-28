@@ -32,7 +32,7 @@ async function vaultTotals(list) {
     return [totRewards,totShares];
 }
 
-async function getStats(list) {
+async function getStats() {
     const eth = vaultAddresses[0].ethereum;
     const bsc = vaultAddresses[1].binance;
 
