@@ -18,12 +18,9 @@
   // Total Days staking.
   document.getElementById("output_totdays").innerHTML = days;
 
-  console.log(`total rewards: ${totals[0]}`);
-  console.log(`total staked: ${totals[1]}`);
-  console.log(`total tokens: ${totals[2]}`);
-  console.log(stats[0][0]);
+  //console.log(stats[0][0]);
 
-  //console.log(vault);
+  console.log(stats);
 
 
 })();
