@@ -1,8 +1,9 @@
 
 (async () => {
-  await Moralis.Cloud.run('loadDB');
+  //await Moralis.Cloud.run('loadDB');
   const stats = await Moralis.Cloud.run('getVaultStats');
   const totals = await Moralis.Cloud.run('getTotals');
+  //const vault = await Moralis.Cloud.run('getFirstVault');
   const days = await Moralis.Cloud.run('timespan');
 
   let price = await getPrice();
@@ -22,7 +23,7 @@
   console.log(`total tokens: ${totals[2]}`);
   console.log(stats[0][0]);
 
-  console.log(`updated1`);
+  //console.log(vault);
 
 
 })();

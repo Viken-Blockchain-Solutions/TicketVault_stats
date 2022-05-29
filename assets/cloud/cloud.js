@@ -24,8 +24,13 @@ Moralis.Cloud.define("getVaultStats", async (request) => {
 });
 
 Moralis.Cloud.define("loadDB", async (request) => {
-    let data = await loadVaults();
-    return data;
+    //let data = await loadVaults();
+    //return data;
+})
+
+Moralis.cloud.define('getDBVault', async (request) => {
+    const vault = await getFirstVault();
+    return vault;
 })
 
 

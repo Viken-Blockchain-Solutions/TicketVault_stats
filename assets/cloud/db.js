@@ -2,8 +2,12 @@
 
 loadVaults = async () => {
     let data = await getStats();
-    console.log(data);
-    await defineNewObject(data[0][1]);
+    for(let i = 0; i < data[0].length; i++) {
+        await defineNewObject(data[0][i]);
+    }
+    for (let i = 0; i < data[1].length; i++) {
+        await defineNewObject(data[1][i]);
+    }
 } 
 
 defineNewObject = async (data) => {
@@ -18,4 +22,10 @@ defineNewObject = async (data) => {
     vault.set("totalVaultReward", data[5]);
 
     await vault.save();
+}
+
+getFirstVault = async () => {
+    const query = new Moralis.Query('VikingVault');
+    const vault = query.first();
+    return vault;
 }
