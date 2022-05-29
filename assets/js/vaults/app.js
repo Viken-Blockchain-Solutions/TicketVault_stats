@@ -1,9 +1,9 @@
 
 (async () => {
-  //await Moralis.Cloud.run('loadDB');
+
   const stats = await Moralis.Cloud.run('getVaultStats');
   const totals = await Moralis.Cloud.run('getTotals');
-  //const vault = await Moralis.Cloud.run('getFirstVault');
+
   const days = await Moralis.Cloud.run('timespan');
 
   let price = await getPrice();
