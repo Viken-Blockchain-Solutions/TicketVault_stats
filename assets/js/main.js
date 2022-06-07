@@ -16,17 +16,8 @@ const logOut = async () => await Moralis.User.logOut();
 
 
 
-async function getTokens() {
-  await Moralis.initPlugins();
-
-  const result = await Moralis.Plugins.oneInch.getSupportedTokens({
-    chain: 'eth', // The blockchain you want to use (eth/bsc/polygon)
-  });
-  console.log(result.tokens);
-}
 
 
-getTokens();
 
 
 

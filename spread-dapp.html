@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,6 +41,13 @@
 </head>
 
 <body class="toggle-sidebar">
+
+
+
+
+
+
+
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -125,8 +134,66 @@
         <!-- Left side columns -->
         <div class="col-lg-6">
           <div class="card">
-            <div class="card-body" id="network-block">
+            <!-- <div class="card-body" id="network-block">
+            </div> -->
+
+
+
+
+            
+            <!-- Testing Start -->
+            <div class="d-flex m-5 justify-content-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <img src="assets/img/icons/eth@2x.png" alt="Ethereum Logo"></i>
+                <h5 class="card-subtitle m-4 text-muted">Spread your Ethereum assets across multiple accounts in one
+                  transaction.</h5>
+              </div>
             </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card p-4">
+                    <div class="row col-md-5 m-3">
+                      <label for="assets">Choose Ethereum asset:</label>
+                      <select class="form-select" aria-label="Default select" id="tokenSelect">
+                        <option value="0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" id="nativeAsset"></option>
+                      </select>
+                    </div>
+                    <form class="recipient-form" id="assets_form" onsubmit="return false">
+                      <div class="row gy-4 m-1">
+                        <div class="col-md-6">
+                          <input type="text" name="address" class="form-control" id="input-address"
+                            placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
+                          <div id="fskey-arrow-icon" class="fskey-activator-logo fskey-icon-locked"
+                            style="top: 40px; left: 590.5px;"></div>
+                        </div>
+
+                        <div class="col-md-4 ">
+                          <input type="text" class="form-control" name="value" id="input-value" placeholder="Amount"
+                            required>
+                          <div id="fskey-user-icon" class="fskey-activator-logo fskey-icon-locked"
+                            style="top: 40px; left: 590.5px;"></div>
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                          <div class="loading" id="loading-message"></div>
+                          <div class="error-message" id="error-message"></div>
+                          <div class="sent-message" id="sent-message"></div>
+                          <button class="btn btn-primary m-3" onclick="setValues()">Add new recipient</button>
+                        </div>
+
+                      </div>
+                    </form>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <!-- Testing End -->
+
           </div>
         </div>
 

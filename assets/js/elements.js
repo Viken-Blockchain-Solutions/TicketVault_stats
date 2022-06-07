@@ -87,6 +87,16 @@ const spreadOptions = {
   }
 }
 
+// const spreadERC20Options = {
+//   functionName: "spreadERC20",
+//   abi: ABI,
+//   params: {
+//     token: "0xc6cb6128178b9e3372b6fc89618bc59657b73234",
+//     recipients: addrList,
+//     values: valueList
+//   }
+// }
+
 const addOptions = (`
 <option selected>Choose a token to spread</option>
 <option value="0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619">ETH</option>
