@@ -4,3 +4,4 @@ const exit_with_fees_topic = '0xc8416383c2f0eaa854723578511b67764cf258a921bd5596
 
 const staking_started_topic = '0xf04e8ad663043d84aa5b63fdf7f12f175002a7fe83b8ff39cae51dc10852cab9';
 const staking_completed_topic = '';
+
