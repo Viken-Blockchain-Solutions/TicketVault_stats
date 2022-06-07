@@ -94,3 +94,19 @@ const checkNetwork = async function () {
 }
 
 
+const getStakeholders = async () => {
+
+    const options = {
+    chain: "eth",
+    address: "0xe7ab1839cd96d34d38552944cc79570ce8d098d3",
+    order: "desc",
+    from_block: "0",
+  };
+    const transactions = await Moralis.Web3API.account.getTransactions(options);
+    let logs = transactions.result;
+    let list = [];
+    for (let i = 0; i < logs.length; i++) {
+        list.push(logs[i]['from_address']);
+    }
+    return list;
+}
