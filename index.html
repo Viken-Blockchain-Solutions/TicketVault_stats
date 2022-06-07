@@ -255,8 +255,26 @@
               <div class="card recent-sales overflow-auto">
 
                 <div class="card-body">
-                  <h5 class="card-title">TicketVaults Data <span>| Today</span></h5>
+                  <h5 class="card-title">Viking Vaults - Data <span>| Today</span></h5>
+                  <table class="table table-striped table-bordered datatable">
+                    <thead>
+                      <tr>
+                        <th scope='col'>#</th>
+                        <th scope='col'>Chain</th>
+                        <th scope='col'>Status</th>
+                        <th scope='col'>Staking period</th>
+                        <th scope='col'>Start date</th>
+                        <th scope='col'>Stop date</th>
+                        <th scope='col'>Vault shares</th>
+                        <th scope='col'>Vault rewards</th>
+                        <th scope='col' class="mt-2">#</th>
+                      </tr>
+                    </thead>
+                    <tbody id="table-body">
 
+                    </tbody>
+                  </table>
+                  <!--    
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
@@ -271,7 +289,7 @@
                       </tr>
                     </thead>
                     <tbody id="table_body">
-                      <tr>
+                     <tr>
                         <th scope="row"><a href="#">#1</a></th>
                         <td><a href="https://etherscan.io/address/0xe7ab1839cd96d34d38552944cc79570ce8d098d3">TicketVault13</a></td>
                         <td><a href="https://centaurify.com/staking" class="text-primary">Centaurify</a></td>
@@ -300,9 +318,10 @@
                         <td id="output_table3_value"></td>
                         <td id="output_table3_end"></td>
                         <td><span class="badge bg-success" id="output_status">Staking</span></td>
-                      </tr>
+                      </tr> 
                     </tbody>
                   </table>
+                -->
 
                 </div>
 
@@ -443,6 +462,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <script type='module' src="assets/js/main.js"></script>
+  <script type='module' src="assets/js/vaults/main.js"></script>
   <script type='module' src="assets/js/vaults/app.js"></script>
 
 </body>

@@ -32,6 +32,10 @@ async function vaultTotals(list) {
     return [totRewards,totShares];
 }
 
+/**
+ * @dev method will get the Vault stats. 
+ * @returns Array of Vault stats for ETH and BSC.
+ */
 async function getStats() {
     const eth = vaultAddresses[0].ethereum;
     const bsc = vaultAddresses[1].binance;
@@ -42,6 +46,11 @@ async function getStats() {
     return [eth_vaults, bsc_vaults];
 }
 
+/**
+ * @dev Used to calculate the "total days" value.
+ * @param time The unixTimestamp. 
+ * @returns dayCount.
+ */
 function timespan(time) {
     const startDate = convertUnixTime(time);
     const endDate = Date.now();
