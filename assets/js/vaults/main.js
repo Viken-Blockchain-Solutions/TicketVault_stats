@@ -1,10 +1,10 @@
 import {tokensFormatter, formatter} from "./app.js";
 
 const span_collect = `<span class="badge bg-info">Collecting</span>`;
-const span_stake = `<span class="badge bg-primary">Staking</span>`;
+const span_stake = `<span class="badge bg-success">Staking</span>`;
 const span_completed = `<span class="badge bg-success"><i class="bi bi-star me-1"></i>Completed</span>`;
-const badge_eth = `<span class="badge bg-success"><img src="assets/img/icons/eth_logo.png" alt="ethereum" width="16px" height="16px"></i>  Ethereum</span>`;
-const badge_bsc = `<span class="badge bg-warning"><i class="bi bi-star me-1"></i> Binance</span>`;
+const badge_eth = `<span><img src="assets/img/icons/Ethereum-icon.png" alt="ethereum" width="16px" height="16px"></img></span>`;
+const badge_bsc = `<span><img src="assets/img/icons/Cjdowner-Cryptocurrency-Flat-Binance-Coin-BNB.ico" alt="binance" width="16px" height="16px"></img></span>`;
 
 async function getPrice() {
     try {
@@ -31,43 +31,43 @@ async function loadData(data) {
     let indexB = 0;
     eth.forEach((u) => {
         temp += "<tr class='mt-2'>";
-        temp += `<th scope='row'><a href='#'>#${id++}</a></th>`;
-        temp += `<td scope="col-auto"> ${badge_eth} </td>`;
+        temp += `<th scope='row' style="text-align:left"><a href='https://centaurify.com/staking/erc20'>#${id++}</a></th>`;
+        temp += `<td scope="col-auto" style="text-align:center"> ${badge_eth} </td>`;
 
         if (u.status == 1){
-          temp += `<td scope="col-auto">${span_stake}</td>`;
+          temp += `<td scope="col-auto" style="text-align:center">${span_stake}</td>`;
         } 
         else if (u.status == 2){
-          temp += `<td scope="col-auto">${span_completed}</td>`;
+          temp += `<td scope="col-auto" style="text-align:center">${span_completed}</td>`;
         } else {
-          temp += `<td scope="col-auto">${span_collect}</td>`;
+          temp += `<td scope="col-auto" style="text-align:center">${span_collect}</td>`;
         } 
         
-        temp += `<td scope="col-auto">${convert(u.stopTimestamp)}</td>`;
-        temp += `<td scope="col-auto">${tokensFormatter.format((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18))} Cent</td>`;
-        temp += `<td scope="col-auto">${formatter.format(((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18)) * price)}</td>`;
-        temp += `<td scope="col-auto">${eth_stakers[indexA]}</td></tr>`;
+        temp += `<td scope="col-auto" style="text-align:center">${convert(u.stopTimestamp)}</td>`;
+        temp += `<td scope="col-auto" style="text-align:center">${tokensFormatter.format((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18))} Cent</td>`;
+        temp += `<td scope="col-auto" style="text-align:center">${formatter.format(((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18)) * price)}</td>`;
+        temp += `<td scope="col-auto" style="text-align:center">${eth_stakers[indexA]}</td></tr>`;
         indexA++
       });
 
     bsc.forEach((u) => {
         temp += "<tr class='mt-2'>";
-        temp += `<th scope='row'><a href='#'>#${id++}</a></th>`;
-        temp += `<td scope="col-auto">${badge_bsc}</td>`;
+        temp += `<th scope='row' style="text-align:left"><a href='https://centaurify.com/staking/bep20'>#${id++}</a></th>`;
+        temp += `<td scope="col-auto" style="text-align:center">${badge_bsc}</td>`;
 
         if (u.status == 1){
-          temp += `<td scope="col-auto">${span_stake}</td>`;
+          temp += `<td scope="col-auto" style="text-align:center">${span_stake}</td>`;
         } 
         else if (u.status == 2){
-          temp += `<td scope="col-auto">${span_completed}</td>`;
+          temp += `<td scope="col-auto" style="text-align:center">${span_completed}</td>`;
         } else {
-          temp += `<td scope="col-auto">${span_collect}</td>`;
+          temp += `<td scope="col-auto" style="text-align:center">${span_collect}</td>`;
         } 
 
-        temp += `<td scope="col-auto">${convert(u.stopTimestamp)}</td>`;
-        temp += `<td scope="col-auto">${tokensFormatter.format((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18))} Cent</td>`;
-        temp += `<td scope="col-auto">${formatter.format(((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18)) * price)}</td>`;
-        temp += `<td scope="col-auto">${bsc_stakers[indexB]}</td></tr>`;
+        temp += `<td scope="col-auto" style="text-align:center">${convert(u.stopTimestamp)}</td>`;
+        temp += `<td scope="col-auto" style="text-align:center">${tokensFormatter.format((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18))} Cent</td>`;
+        temp += `<td scope="col-auto" style="text-align:center">${formatter.format(((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18)) * price)}</td>`;
+        temp += `<td scope="col-auto" style="text-align:center">${bsc_stakers[indexB]}</td></tr>`;
         indexB++
       });
 

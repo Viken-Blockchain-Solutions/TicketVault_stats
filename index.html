@@ -27,10 +27,12 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
-        type="application/javascript"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.js" integrity="sha512-TsDUjQW16/G8fz4gmgTOBW2s2Oi6TPUtQ6/hm+TxZZdkQtQrK5xEFIE0rgDuz5Cl1xQU1u3Yer7K5IuuBeiCqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Moralis SDK code -->
   <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
@@ -259,13 +261,13 @@
                   <table class="table table-borderless dataTable-selector">
                     <thead>
                       <tr>
-                        <th scope='col'>#</th>
-                        <th scope='col'>Network</th>
-                        <th scope='col'>Status</th>
-                        <th scope='col'>Stop date</th>
-                        <th scope='col'>Total Cent locked</th>
-                        <th scope='col'>Fiat value</th>
-                        <th scope='col'>Stakeholders</th>
+                        <th style="text-align:left" scope='col'>#</th>
+                        <th scope='col' style="text-align:center">Network</th>
+                        <th scope='col' style="text-align:center">Status</th>
+                        <th scope='col' style="text-align:center">Stop date</th>
+                        <th scope='col' style="text-align:center">Total Cent locked</th>
+                        <th scope='col' style="text-align:center">Fiat value</th>
+                        <th scope='col' style="text-align:center">Stakers</th>
                       </tr>
                     </thead>
                     <tbody id="table-body">
