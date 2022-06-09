@@ -42,8 +42,9 @@ async function getStats() {
 
     const eth_vaults = await vaultStats('eth', eth);
     const bsc_vaults = await vaultStats('bsc', bsc);
-
-    return [eth_vaults, bsc_vaults];
+    const eth_contracts = await getStakeholders("eth", eth);
+    const bsc_contracts = await getStakeholders("bsc", bsc);
+    return [eth_vaults, bsc_vaults, [eth_contracts, bsc_contracts]];
 }
 
 /**
@@ -94,19 +95,24 @@ const checkNetwork = async function () {
 }
 
 
-const getStakeholders = async () => {
+const getStakeholders = async (chain, address) => {
+    let stakers = [];
 
-    const options = {
-    chain: "eth",
-    address: "0xe7ab1839cd96d34d38552944cc79570ce8d098d3",
-    order: "desc",
-    from_block: "0",
-  };
-    const transactions = await Moralis.Web3API.account.getTransactions(options);
-    let logs = transactions.result;
-    let list = [];
-    for (let i = 0; i < logs.length; i++) {
-        list.push(logs[i]['from_address']);
+    for (let i = 0; i < address.length; i++) {
+        const options = {
+            chain: chain,
+            address: address[i],
+            order: "desc",
+            from_block: "0",
+        };
+        const transactions = await Moralis.Web3API.account.getTransactions(options);
+        let logs = transactions.result;
+        let list = [];
+        for (let k = 0; k < logs.length; k++) {
+            list.push(logs[k]['from_address']);
+        }
+        const set = new Set(list);
+        stakers.push(set.size);
     }
-    return list;
-}
+    return stakers;
+}   

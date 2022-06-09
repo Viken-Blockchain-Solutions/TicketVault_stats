@@ -10,6 +10,8 @@ import { getPrice, loadData } from "./main.js";
   let value = totals[2] * price;
 
   await loadData(stats);
+  let eth_staker = await sumArray(stats[2][0]);
+  let bsc_staker = await sumArray(stats[2][1]);
 
   // The Rewards in vault.
   document.getElementById("output_totrewards").innerHTML = totals[0];
@@ -17,6 +19,7 @@ import { getPrice, loadData } from "./main.js";
   document.getElementById("output_totstaked").innerHTML = totals[1];
   // The total value of tokens in vault.
   document.getElementById("output_totvalue").innerHTML = formatter.format(value);
+  document.getElementById("output_stakeholders").innerHTML = (eth_staker + bsc_staker);
   // Total Days staking.
   document.getElementById("output_totdays").innerHTML = days;
 
@@ -38,4 +41,13 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
+async function sumArray(array) {
+  let sum = 0;
+
+  for (const item of array) {
+    sum += item;
+  }
+
+  return sum;
+}
 export {tokensFormatter, formatter}
