@@ -27,10 +27,12 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
-        type="application/javascript"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.js" integrity="sha512-TsDUjQW16/G8fz4gmgTOBW2s2Oi6TPUtQ6/hm+TxZZdkQtQrK5xEFIE0rgDuz5Cl1xQU1u3Yer7K5IuuBeiCqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Moralis SDK code -->
   <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
@@ -186,14 +188,14 @@
               <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Live Contracts <span>| Ethereum</span></h5>
+                  <h5 class="card-title">Live Contracts <span>| mainnet</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-card-text"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 id="output_live">3</h6>
+                      <h6 id="output_live">9</h6>
                       <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1">Contracts deployed</span>
 
                     </div>
@@ -250,59 +252,31 @@
             </div>
             <!-- End value Card -->
 
-            <!-- TicketVault Data -->
+            <!-- VikingVault Data -->
             <div class="col-12">
               <div class="card recent-sales overflow-auto">
 
                 <div class="card-body">
-                  <h5 class="card-title">TicketVaults Data <span>| Today</span></h5>
-
-                  <table class="table table-borderless datatable">
+                  <h5 class="card-title">Viking Vaults - Data <span>| Latest</span></h5>
+                  <table class="table table-borderless dataTable-selector">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Contract</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Token</th>
-                        <th scope="col">Holders</th>
-                        <th scope="col">Fiat Value</th>
-                        <th scope="col">End Date</th>
-                        <th scope="col">Status</th>
+                        <th style="text-align:left" scope='col'>#</th>
+                        <th scope='col' style="text-align:center">Network</th>
+                        <th scope='col' style="text-align:center">Status</th>
+                        <th scope='col' style="text-align:center">Stop date</th>
+                        <th scope='col' style="text-align:center">Total Cent locked</th>
+                        <th scope='col' style="text-align:center">Fiat value</th>
+                        <th scope='col' style="text-align:center">Stakers</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#1</a></th>
-                        <td><a href="https://etherscan.io/address/0xe7ab1839cd96d34d38552944cc79570ce8d098d3">TicketVault13</a></td>
-                        <td><a href="https://centaurify.com/staking" class="text-primary">Centaurify</a></td>
-                        <td><a href="https://etherscan.io/address/0x08ba718F288c3b12B01146816bef9FA03cC635bc">CENT</a></td>
-                        <td id="output_table1_holders"></td>
-                        <td id="output_table1_value"></td>
-                        <td id="output_table1_end"></td>
-                        <td><span class="badge bg-success">Staking</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2</a></th>
-                        <td><a href="https://etherscan.io/address/0x1ed3181b9e5d8c93452c0af7081502398e8610a2">TicketVault26</a></td>
-                        <td><a href="https://centaurify.com/staking" class="text-primary">Centaurify</a></td>
-                        <td><a href="https://etherscan.io/address/0x08ba718F288c3b12B01146816bef9FA03cC635bc">CENT</a></td>
-                        <td id="output_table2_holders"></td>
-                        <td id="output_table2_value"></td>
-                        <td id="output_table2_end"></td>
-                        <td><span class="badge bg-success">Staking</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#3</a></th>
-                        <td><a href="https://etherscan.io/address/0x3a01c5f9acdeaead1e9ac4706489132df25dc2e9">TicketVault52</a></td>
-                        <td><a href="https://centaurify.com/staking" class="text-primary">Centaurify</a></td>
-                        <td><a href="https://etherscan.io/address/0x08ba718F288c3b12B01146816bef9FA03cC635bc">CENT</a></td>
-                        <td id="output_table3_holders"></td>
-                        <td id="output_table3_value"></td>
-                        <td id="output_table3_end"></td>
-                        <td><span class="badge bg-success">Staking</span></td>
-                      </tr>
+                    <tbody id="table-body">
+
                     </tbody>
                   </table>
+                  <!--    
+
+                -->
 
                 </div>
 
@@ -324,14 +298,14 @@
               <div class="news">
                 <div class="post-item clearfix">
                   <img src="assets/img/Gitbook.png" alt="Gitbook logo">
-                  <h4><a href="https://github.com/Viken-Blockchain-Solutions/Solidity-files/blob/main/smart-contracts/docs/TicketVault%20documentation/TicketVault.docs.md">TicketVault Docs</a></h4>
-                  <p>TicketVault.docs.md</p>
+                  <h4><a href="https://github.com/Viken-Blockchain-Solutions/Solidity-files/blob/main/smart-contracts/docs/VikingVault%20documentation/VikingVault.docs.md">VikingVault Docs</a></h4>
+                  <p>VikingVault.docs.md</p>
                 </div>
 
                 <div class="post-item clearfix">
                   <img src="assets/img/GitHub-Mark-64px.png" alt="GitHub logo">
-                  <h4><a href="https://github.com/Viken-Blockchain-Solutions/Solidity-files/tree/main/smart-contracts/contracts/staking">TicketVault Code</a></h4>
-                  <p>TicketVault.sol</p>
+                  <h4><a href="https://github.com/Viken-Blockchain-Solutions/Solidity-files/tree/main/smart-contracts/contracts/staking">VikingVault Code</a></h4>
+                  <p>VikingVault.sol</p>
                 </div>
 
               </div><!-- End sidebar recent posts-->
@@ -442,12 +416,9 @@
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="src/js/connect.js"></script>
-  <script src="src/js/api.js"></script>
-  <script src="src/js/data.js"></script>
-  <script src="src/js/compute_prices.js"></script>
+  <script type='module' src="assets/js/main.js"></script>
+  <script type='module' src="assets/js/vaults/main.js"></script>
+  <script type='module' src="assets/js/vaults/app.js"></script>
 
 </body>
 
