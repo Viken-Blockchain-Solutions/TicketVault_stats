@@ -1,10 +1,7 @@
-/**
-* Template Name: NiceAdmin - v2.2.2
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
+(function() {
+  "use strict";
+  
 /* Moralis init code */
 const serverUrl = 'https://ifwsu1awnie4.usemoralis.com:2053/server';
 const appId = 'YtIcmLhp4q3D22UNDoJqLhFCLuAbLIXLLu5IUgCD';
@@ -14,15 +11,6 @@ let user = Moralis.User.current();
 if(!user) (async () => await Moralis.authenticate().then((user) => console.log(user)))();
 const logOut = async () => await Moralis.User.logOut();
 
-
-
-
-
-
-
-
-(function() {
-  "use strict";
 
   /**
    * Easy selector helper function
