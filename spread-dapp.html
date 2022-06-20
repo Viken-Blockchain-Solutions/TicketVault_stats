@@ -42,13 +42,6 @@
 
 <body class="toggle-sidebar">
 
-
-
-
-
-
-
-
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -130,23 +123,14 @@
           </div>
         </div>
 
-
         <!-- Left side columns -->
         <div class="col-lg-6">
           <div class="card">
-            <!-- <div class="card-body" id="network-block">
-            </div> -->
-
-
-
-
-            
-            <!-- Testing Start -->
+            <!-- Spread card start -->
             <div class="d-flex m-5 justify-content-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <img src="assets/img/icons/eth@2x.png" alt="Ethereum Logo"></i>
-                <h5 class="card-subtitle m-4 text-muted">Spread your Ethereum assets across multiple accounts in one
-                  transaction.</h5>
+                <img src="assets/img/icons/eth@2x.png" alt="Ethereum Logo"></img>
+                <h5 class="card-subtitle m-4 text-muted">Spread your Ethereum assets across multiple accounts in one transaction.</h5>
               </div>
             </div>
 
@@ -154,33 +138,30 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="card p-4">
-                    <div class="row col-md-5 m-3">
-                      <label for="assets">Choose Ethereum asset:</label>
-                      <select class="form-select" aria-label="Default select" id="tokenSelect">
-                        <option value="0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" id="nativeAsset"></option>
-                      </select>
-                    </div>
                     <form class="recipient-form" id="assets_form" onsubmit="return false">
+                      <div class="row col-md-5 m-3">
+                        <select class="form-select" id="selectAssets" required>
+                          <option selected disabled value="">Choose assets:</option>
+                          <option value="0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" id="nativeAsset"></option>
+                        </select>
+                      </div>
                       <div class="row gy-4 m-1">
                         <div class="col-md-6">
                           <input type="text" name="address" class="form-control" id="input-address"
                             placeholder="Address" pattern="[A-Za-z0-9]{42}" title="Ethereum address" required>
-                          <div id="fskey-arrow-icon" class="fskey-activator-logo fskey-icon-locked"
-                            style="top: 40px; left: 590.5px;"></div>
+                          <div id="fskey-arrow-icon" class="fskey-activator-logo fskey-icon-locked" style="top: 40px; left: 590.5px;"></div>
                         </div>
 
                         <div class="col-md-4 ">
-                          <input type="text" class="form-control" name="value" id="input-value" placeholder="Amount"
-                            required>
-                          <div id="fskey-user-icon" class="fskey-activator-logo fskey-icon-locked"
-                            style="top: 40px; left: 590.5px;"></div>
+                          <input type="text" class="form-control" name="value" id="input-value" placeholder="Amount" required>
+                          <div id="fskey-user-icon" class="fskey-activator-logo fskey-icon-locked" style="top: 40px; left: 590.5px;"></div>
                         </div>
 
                         <div class="col-md-12 text-center">
                           <div class="loading" id="loading-message"></div>
                           <div class="error-message" id="error-message"></div>
                           <div class="sent-message" id="sent-message"></div>
-                          <button class="btn btn-primary m-3" onclick="setValues()">Add new recipient</button>
+                          <button class="btn btn-primary m-3" onclick="setTableValues()">Add new recipient</button>
                         </div>
 
                       </div>
@@ -192,7 +173,7 @@
 
               </div>
             </div>
-            <!-- Testing End -->
+            <!-- Spread card end -->
 
           </div>
         </div>
@@ -221,7 +202,7 @@
                         <!-- End Table with hoverable rows -->
                       </div>
                     </div>
-                    <button type="submit" onclick="send()" class="btn btn-primary m-3">Spread</button>
+                    <button type="submit" onclick="spread()" class="btn btn-primary m-3">Spread</button>
                   </div>
 
                 </div>
@@ -236,7 +217,6 @@
       <!-- Right side columns -->
 
     </section>
-
 
   </main><!-- End #main -->
 
@@ -261,10 +241,11 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/abi.js"></script>
-  <script src="assets/js/elements.js"></script>
-  <script src="assets/js/tokens.js"></script>
-  <script src="assets/js/spread.js"></script>
+  <script src="assets/js/spread/app.js"></script>
+  <script src="assets/js/spread/utils.js"></script>
+  <script src="assets/cloud/ABI.js"></script>
+
+  <script src="assets/js/spread/elements.js"></script>
 </body>
 
 </html>
