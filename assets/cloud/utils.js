@@ -63,3 +63,12 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
+function toggle() {
+  let x = document.getElementById("div1");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+

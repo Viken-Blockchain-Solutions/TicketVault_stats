@@ -1,4 +1,3 @@
-
 (function() {
   "use strict";
   
@@ -6,11 +5,6 @@
 const serverUrl = 'https://ifwsu1awnie4.usemoralis.com:2053/server';
 const appId = 'YtIcmLhp4q3D22UNDoJqLhFCLuAbLIXLLu5IUgCD';
 Moralis.start({ serverUrl, appId });
-
-let user = Moralis.User.current();
-if(!user) (async () => await Moralis.authenticate().then((user) => console.log(user)))();
-const logOut = async () => await Moralis.User.logOut();
-
 
   /**
    * Easy selector helper function
