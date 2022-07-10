@@ -5,6 +5,11 @@ function sumOf(arr) {
     return total;
 }
 
+async function getAssets(network, data) {
+  await getNativeAsset(network, data);
+  await getERC20Assets();
+}
+
 function setTableValues() {
     let address = document.getElementById("input-address").value;
     let amount = document.getElementById("input-value").value;

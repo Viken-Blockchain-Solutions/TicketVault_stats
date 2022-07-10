@@ -28,11 +28,11 @@ const getERC20Assets = async () => {
   for(let index in tokenBalances) {
     let newOption = document.createElement('option');
     newOption.value = tokenBalances[index].token_address;
-    newOption.appendChild(document.createTextNode(`${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(3)}`));
-    
-    docFrag.appendChild(newOption);
+    newOption.innerHTML = `${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(3)}`;
+
+    selectAssets.append(newOption);
   }
-  selectAssets.appendChild(docFrag);
+  // selectAssets.appendChild(docFrag);
 }
 
 async function sendNativeAsset(network) {
@@ -62,4 +62,28 @@ async function sendErc20(token, network) {
    }
   if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadERC20Options});
   if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadERC20Options});
+}
+
+async function switchNetwork(chain, network, data) {
+  await Moralis.switchNetwork(chain);
+
+  getAssets(network, data);
+}
+
+async function addPolygonChain() {
+  const chainId = 137;
+  const chainName = "Polygon Mainnet";
+  const currencyName = "Polygon";
+  const currencySymbol = "MATIC";
+  const rpcUrl = "https://polygon-rpc.com";
+  const blockExplorerUrl = "https://polygonscan.com/";
+
+  await Moralis.addNetwork(
+    chainId,
+    chainName,
+    currencyName,
+    currencySymbol,
+    rpcUrl,
+    blockExplorerUrl
+  );
 }
