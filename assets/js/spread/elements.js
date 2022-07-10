@@ -2,7 +2,6 @@ let addrList = [];
 let valueList = [];
 let valsToSum = [];
 let sum = 1;
-let token;
 
 const spreadPolygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
@@ -32,7 +31,7 @@ const getERC20Assets = async () => {
 
     selectAssets.append(newOption);
   }
-  // selectAssets.appendChild(docFrag);
+  selectAssets.appendChild(docFrag);
 }
 
 async function sendNativeAsset(network) {
@@ -64,10 +63,9 @@ async function sendErc20(token, network) {
   if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadERC20Options});
 }
 
-async function switchNetwork(chain, network, data) {
+//
+async function networkSwitch(chain) {
   await Moralis.switchNetwork(chain);
-
-  getAssets(network, data);
 }
 
 async function addPolygonChain() {
