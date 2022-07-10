@@ -72,21 +72,9 @@
 
     <!-- Example single danger button -->
 
-    <!-- 
-      TODO:
-      * Detect network on switch,
-      * must be automatic,
-      * values must be added dynamically
-     -->
-    <!-- <div class="btn-group">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Choose chain</button>
-      <ul id="selectedChain" class="dropdown-menu">
-        <li><a class="dropdown-item" value="0x1" id="ethSelected">Ethereum</a></li>
-        <li><a class="dropdown-item" value="0x89" id="maticSelected">Polygon</a></li>
-      </ul>
-    </div> -->
+   
     <select class=" form-select" id="selectedChain">
-      <option id="chooseChain" selected disabled value="">Choose chain</option>
+      <option id="chooseChain" disabled value="">Choose chain</option>
       <option id='eth' value="0x1">Ethereum</option>
       <option id='matic' value="0x89">Polygon</option>
     </select>
@@ -261,12 +249,11 @@
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/spread/app.js"></script>
-  <script src="assets/js/spread/utils.js"></script>
-  <script src="assets/cloud/ABI.js"></script>
-
-  <script src="assets/js/spread/elements.js"></script>
+  
+  <script type='module' src="assets/js/main.js"></script>
+  <script type='module' src="assets/js/spread/app.js"></script>
+<!--   <script type='module' src="assets/js/spread/utils.js"></script>
+  <script type='module' src="assets/js/spread/elements.js"></script> -->
 </body>
 
 </html>
