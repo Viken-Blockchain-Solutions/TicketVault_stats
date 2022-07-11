@@ -21,7 +21,8 @@ let token, logOut;
   console.log("Refreshed and got the assets for:", networkData[0]);
 })()
 
-
+// event listeners, 
+// listens when user selects chain in front-end
 selectedChain.addEventListener("change", async (event) => {
   let chain = event.target.value;
   console.log("changed select option to:", chain)
@@ -39,4 +40,5 @@ selectedChain.addEventListener("change", async (event) => {
   console.log("GetAssets called and returned erc assets:", assets[1] );
 });
 
+// listens when user selects a token in front-end
 selectAssets.addEventListener("change", (event) => token = event.target.value);
