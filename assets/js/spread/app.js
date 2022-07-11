@@ -13,12 +13,13 @@ let token, logOut;
   if(!user) (Moralis.authenticate().then((user) => console.log(user)))();
   // FIXME: logout.
   logOut = async () => await Moralis.User.logOut();
-  
-  let networkData = await getNetworkData();
+
+ await Moralis.enableWeb3();
+  /*  
   console.log("current Network:", networkData[0])
   
   await getAssets(networkData[0], networkData[1]);
-  console.log("Refreshed and got the assets for:", networkData[0]);
+  console.log("Refreshed and got the assets for:", networkData[0]); */
 })()
 
 // event listeners, 

@@ -8,7 +8,7 @@ const spreadPolygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 let selectAssets = document.querySelector("#selectAssets");
 let nativeAsset = document.querySelector("#nativeAsset");
-// let docFrag = document.createDocumentFragment();
+let docFrag = document.createDocumentFragment();
 
 // fetch the native balance of the address and display it in the select options element 
 const getNativeAsset = async (network, data) => {
@@ -23,39 +23,45 @@ const getNativeAsset = async (network, data) => {
 
 // get erc20 assets and display them in the select options.
 const getERC20Assets = async (currentChain) => {
-  let tokenBalances = await Moralis.Web3API.account.getTokenBalances({chain: Moralis.getChainId()});
-  
   let chainId = Moralis.getChainId();
-  if(currentChain == chainId) {
+  
+  if(currentChain != chainId) {
     console.log("if");
     console.log("Moralis chainId", chainId);
     console.log("current Chain", currentChain);
+    let tokenBalances = await Moralis.Web3API.account.getTokenBalances({chain: chainId});
     for(let index in tokenBalances) {
-      newOption = document.createElement('option');
-      newOption.value = tokenBalances[index].token_address;
-      newOption.style.display = "none";
-      newOption.style.display = "block";
-      newOption.append(
-        `${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(4)}`
-      );
-      selectAssets.append(newOption);
+      let currOption = document.createElement('option');
+      currOption.value = tokenBalances[index].token_address;
+    /*   currOption.style.display = "none";
+      currOption.style.display = "block"; */
+      currOption.innerHTML = 
+        `${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(4)}`;
+
+      selectAssets.append(currOption);
+      let removed = selectAssets.remove(currOption);
+      console.log("removed", removed);
+      
+      console.log(selectAssets);
+      console.log("asset appended", currOption);
     }
-    // selectAssets.append(docFrag);
-    }
-    
+    //selectAssets.append(docFrag);
+  }
+    /* 
     else {
       console.log("else");
+      let tokenBalances = await Moralis.Web3API.account.getTokenBalances({chain: chainId});
       for(let index in tokenBalances) {
         newOption = document.createElement('option');
-        newOption.value = tokenBalances[index].token_address;
         newOption.innerHTML = `${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(4)}`;
         
+        newOption.value = tokenBalances[index].token_address;
         newOption.style.display = "none";
         newOption.style.display = "block";
         // selectAssets.append(newOption);
       }
-      // selectAssets.append(docFrag);
-    }
+      selectAssets.append(docFrag);
+    } */
   
 }
 
