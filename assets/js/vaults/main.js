@@ -29,9 +29,29 @@ async function loadData(data) {
     let id = 1;
     let indexA = 0;
     let indexB = 0;
+
+    async function temp_modal() {
+      let modal = `
+          <div class="modal-content-show">
+                <div class="modal-header">
+                  <h5 class="modal-title">Viking Vault Stats</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div>
+                  ${badge_eth}
+                  ${eth_stakers}
+                </div>
+          </div>
+      `;
+
+      document.getElementById("modal-content").innerHTML = modal;
+
+    }
+
     eth.forEach((u) => {
         temp += "<tr class='mt-2'>";
-        temp += `<th scope='row' style="text-align:left"><a href='https://centaurify.com/staking/erc20'>#${id++}</a></th>`;
+        temp += `<th scope='row' style="text-align:left"><a id="vault_${id}" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">#${id++}</a></th>`;  
         temp += `<td scope="col-auto" style="text-align:center"> ${badge_eth} </td>`;
 
         if (u.status == 1){
@@ -48,11 +68,12 @@ async function loadData(data) {
         temp += `<td scope="col-auto" style="text-align:center">${formatter.format(((u.totalVaultShares / 1e18) + (u.totalVaultRewards / 1e18)) * price)}</td>`;
         temp += `<td scope="col-auto" style="text-align:center">${eth_stakers[indexA]}</td></tr>`;
         indexA++
-      });
+    });
 
     bsc.forEach((u) => {
         temp += "<tr class='mt-2'>";
         temp += `<th scope='row' style="text-align:left"><a href='https://centaurify.com/staking/bep20'>#${id++}</a></th>`;
+
         temp += `<td scope="col-auto" style="text-align:center">${badge_bsc}</td>`;
 
         if (u.status == 1){
@@ -70,9 +91,13 @@ async function loadData(data) {
         temp += `<td scope="col-auto" style="text-align:center">${bsc_stakers[indexB]}</td></tr>`;
         indexB++
       });
-
-    document.getElementById("table-body").innerHTML = temp;
+      
+      console.log(eth_stakers)
+      
+      document.getElementById("table-body").innerHTML = temp;
+      temp_modal();
 }
+
 
 function convert(timestamp) {
   var unixtimestamp = timestamp;

@@ -18,7 +18,7 @@ Moralis.start({ serverUrl, appId });
     }
   }
 
-  /**
+  /** 
    * Easy event listener function
    */
   const on = (type, el, listener, all = false) => {
@@ -53,6 +53,16 @@ Moralis.start({ serverUrl, appId });
       select('.search-bar').classList.toggle('search-bar-show')
     })
   }
+  
+  /**
+   * Vault modal toggle
+   */
+  if (select('.toggle-modal-content')) {
+    on('click', '.toggle-modal-content', function(e) {
+      select('#modal-content').classList.toggle('.modal-content-show')
+    })
+  }
+
 
   /**
    * Navbar links active state on scroll

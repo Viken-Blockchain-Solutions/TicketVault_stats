@@ -1,3 +1,5 @@
+// "./assets/js/vaults/app.js"
+
 import { getPrice, loadData } from "./main.js";
 
 (async () => {
@@ -22,8 +24,6 @@ import { getPrice, loadData } from "./main.js";
   document.getElementById("output_stakeholders").innerHTML = (eth_staker + bsc_staker);
   // Total Days staking.
   document.getElementById("output_totdays").innerHTML = days;
-
-
 })();
 
 const tokensFormatter = new Intl.NumberFormat('en-US', {
@@ -50,4 +50,6 @@ async function sumArray(array) {
 
   return sum;
 }
+
+
 export {tokensFormatter, formatter}
