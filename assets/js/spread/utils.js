@@ -2,69 +2,48 @@ let addrList = [];
 let valueList = [];
 let valsToSum = [];
 let sum = 1;
-let newOption;
 
 const spreadPolygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
+
+// const spreadPolygon = spreadAddresses[0].polygon;
+// const spreadMainnet = spreadAddresses[1].ethereum;
 let selectAssets = document.querySelector("#selectAssets");
-let nativeAsset = document.querySelector("#nativeAsset");
-let docFrag = document.createDocumentFragment();
+let nativeOption = document.createElement('option');
+let erc20Option = document.createElement('option');
 
 // fetch the native balance of the address and display it in the select options element 
 const getNativeAsset = async (network, data) => {
   const nativeBalances = await Moralis.Web3API.account.getNativeBalance({chain: Moralis.getChainId()});
-  
+
   for(let index in data) {
     if(network.chainId == data[index].chainId) {
-      nativeAsset.innerHTML = `${data[index].nativeCurrency.symbol}: ${Number(Moralis.Units.FromWei(nativeBalances.balance)).toFixed(4)}`;
+      nativeOption.value = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+
+      let nativeAsset = `${data[index].nativeCurrency.symbol}: ${Number(Moralis.Units.FromWei(nativeBalances.balance)).toFixed(4)}`;
+      
+      nativeOption.innerText = nativeAsset;
+      selectAssets.appendChild(nativeOption);
     }
   }
 };
 
 // get erc20 assets and display them in the select options.
-const getERC20Assets = async (currentChain) => {
+const getERC20Assets = async () => {
   let chainId = Moralis.getChainId();
-  
-  if(currentChain != chainId) {
-    console.log("if");
-    console.log("Moralis chainId", chainId);
-    console.log("current Chain", currentChain);
-    let tokenBalances = await Moralis.Web3API.account.getTokenBalances({chain: chainId});
-    for(let index in tokenBalances) {
-      let currOption = document.createElement('option');
-      currOption.value = tokenBalances[index].token_address;
-    /*   currOption.style.display = "none";
-      currOption.style.display = "block"; */
-      currOption.innerHTML = 
-        `${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(4)}`;
 
-      selectAssets.append(currOption);
-      let removed = selectAssets.remove(currOption);
-      console.log("removed", removed);
-      
-      console.log(selectAssets);
-      console.log("asset appended", currOption);
-    }
-    //selectAssets.append(docFrag);
+  let tokenBalances = await Moralis.Web3API.account.getTokenBalances({chain: chainId});
+  erc20Option.style.display = "none";
+  for(let index in tokenBalances) {
+    
+    erc20Option.style.display = "block";
+    erc20Option.value = tokenBalances[index].token_address;
+    let tokenList = `${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(4)}`;
+    
+    erc20Option.innerText = tokenList;
+    selectAssets.appendChild(erc20Option);
   }
-    /* 
-    else {
-      console.log("else");
-      let tokenBalances = await Moralis.Web3API.account.getTokenBalances({chain: chainId});
-      for(let index in tokenBalances) {
-        newOption = document.createElement('option');
-        newOption.innerHTML = `${tokenBalances[index].symbol}: ${Number(Moralis.Units.FromWei(tokenBalances[index].balance, tokenBalances[index].decimals)).toFixed(4)}`;
-        
-        newOption.value = tokenBalances[index].token_address;
-        newOption.style.display = "none";
-        newOption.style.display = "block";
-        // selectAssets.append(newOption);
-      }
-      selectAssets.append(docFrag);
-    } */
-  
 }
-
 
 // @notice Spreads main asset to multiple recipients with corresponding values, all in just one transaction.
 // @param recipients[] An array of addresses.
@@ -99,13 +78,17 @@ async function sendErc20(token, network) {
 
 // switch network with to selected chain 
 async function networkSwitch(chain) {
-  let network = await Moralis.switchNetwork(chain);
-  return network;
+  try {
+    let network = await Moralis.switchNetwork(chain);
+    return network;
+  } catch(err) {
+    if(err.code !== -32002) addPolygonChain();
+  }
 }
 
 // adds polygon to metamask
 // if user does not have chain
-/* async function addPolygonChain() {
+async function addPolygonChain() {
   const chainId = 137;
   const chainName = "Polygon Mainnet";
   const currencyName = "Polygon";
@@ -121,7 +104,7 @@ async function networkSwitch(chain) {
     rpcUrl,
     blockExplorerUrl
   );
-} */
+}
 
 // gives the sum of an array
 function sumOf(arr) {
@@ -203,4 +186,4 @@ async function spread() {
   } else sendErc20(token, networkData[0]);
 }
 
-export { spread, setNetworkId, getNetworkData, addRecieverDataToLists, setTableValues, getAssets, sumOf, networkSwitch, }
+export { spread, setNetworkId, getNetworkData, addRecieverDataToLists, setTableValues, getAssets, sumOf, networkSwitch }

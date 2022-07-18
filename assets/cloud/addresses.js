@@ -23,3 +23,12 @@ const vaultAddresses = [
         "0xE7ab1839Cd96D34D38552944CC79570Ce8D098D3"
     ]}
 ];
+
+const spreadAddresses = [
+  {"polygon": [
+    "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F"
+  ]},
+  {"ethereum": [
+    "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F"
+  ]}
+];
