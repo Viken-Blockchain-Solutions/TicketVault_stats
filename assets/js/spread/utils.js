@@ -1,3 +1,6 @@
+import { ABI } from "./ABI.js";
+import { token } from "./app.js";
+
 let addrList = [];
 let valueList = [];
 let valsToSum = [];
@@ -11,6 +14,27 @@ const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 let selectAssets = document.querySelector("#selectAssets");
 let nativeOption = document.createElement('option');
 let erc20Option = document.createElement('option');
+
+// Get the nework data like network and chain data.
+async function getNetworkData() {
+  let web3Provider = await Moralis.enableWeb3();
+  let network = await web3Provider.getNetwork();
+  let chainId = await Moralis.chainId;
+  
+  let response = await fetch("https://chainid.network/chains.json");
+  let data = await response.json();
+  
+  return [network, data, chainId];
+}
+
+// Set the correct network ID in the select options droppdown.
+async function setNetworkId() {
+  let chainId = await getNetworkData();
+  
+  if(chainId[2] == "0x1") document.querySelector("#eth").selected = "true";
+  else if(chainId[2] == "0x89") document.querySelector("#matic").selected = "true";
+  else document.getElementById("chooseChain").selected = "true";
+}
 
 // fetch the native balance of the address and display it in the select options element 
 const getNativeAsset = async (network, data) => {
@@ -45,13 +69,20 @@ const getERC20Assets = async () => {
   }
 }
 
+// fetch both native asset and ERC20, and return them.
+async function getAssets(network, data) {
+  let native = await getNativeAsset(network, data);
+  let erc20 = await getERC20Assets(network);
+  return [native, erc20];
+}
+
 // @notice Spreads main asset to multiple recipients with corresponding values, all in just one transaction.
 // @param recipients[] An array of addresses.
 // @param values[] An array of values.
 async function sendNativeAsset(network) {
   const spreadOptions = {
     functionName: "spreadAsset",
-    abi: SPREAD_ABI,
+    abi: ABI,
     params: {
       recipients: addrList,
       values: valueList
@@ -60,21 +91,34 @@ async function sendNativeAsset(network) {
   if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadOptions});
   if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadOptions});
 }
+
 // @notice execute method to spread ERC20 assets.
 // @param token The token to spread.
 async function sendErc20(token, network) {
   const spreadERC20Options = {
     functionName: "spreadERC20",
-    abi: SPREAD_ABI,
+    abi: ABI,
     params: {
       token: token,
       recipients: addrList,
       values: valueList
-     }
-   }
+    }
+  }
   if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadERC20Options});
   if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadERC20Options});
 }
+
+// spreads native or erc20 assets
+async function spread() {
+  let networkData = await getNetworkData();
+  
+  if(selectAssets.value === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") sendNativeAsset(networkData[0]);
+  else if(selectAssets.value ===  "") {
+    alert("Please select an asset to spread");
+    throw "no selected asset";
+  } else sendErc20(token, networkData[0]);
+}
+document.querySelector("#spread").onclick = spread;
 
 // switch network with to selected chain 
 async function networkSwitch(chain) {
@@ -106,21 +150,6 @@ async function addPolygonChain() {
   );
 }
 
-// gives the sum of an array
-function sumOf(arr) {
-  let total = 0;
-  for(let i = 0; i < arr.length; i++) total += arr[i];
-
-  return total;
-}
-
-// fetch both native asset and ERC20, and return them.
-async function getAssets(network, data) {
-  let native = await getNativeAsset(network, data);
-  let erc20 = await getERC20Assets(network);
-  return [native, erc20];
-}
-
 // sets all values in the table
 function setTableValues() {
   let address = document.getElementById("input-address").value;
@@ -147,6 +176,7 @@ function setTableValues() {
   
   addRecieverDataToLists(address, amount);
 }
+document.querySelector("#setTableValues").onclick = setTableValues;
 
 // adds all data to arrays
 function addRecieverDataToLists(account, value) {
@@ -155,35 +185,12 @@ function addRecieverDataToLists(account, value) {
   valsToSum.push(Number(Moralis.Units.ETH(value)));
 }
 
-// Get the nework data like network and chain data.
-async function getNetworkData() {
-  let web3Provider = await Moralis.enableWeb3();
-  let network = await web3Provider.getNetwork();
+// gives the sum of an array
+function sumOf(arr) {
+  let total = 0;
+  for(let i = 0; i < arr.length; i++) total += arr[i];
 
-  let response = await fetch("https://chainid.network/chains.json");
-  let data = await response.json();
-
-  return [network, data];
-}
-
-// Set the correct network ID in the select options droppdown.
-async function setNetworkId() {
-  let chainId = await Moralis.chainId;
-  
-  if(chainId === "0x1") document.getElementById("eth").selected = "true";
-  else if(chainId === "0x89") document.getElementById("matic").selected = "true";
-  else document.getElementById("chooseChain").selected = "true";
-}
-
-// spreads native or erc20 assets
-async function spread() {
-  let networkData = await getNetworkData();
-  
-  if(selectAssets.value === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") sendNativeAsset(networkData[0]);
-  else if(selectAssets.value ===  "") {
-    alert("Please select an asset to spread");
-    throw "no selected asset";
-  } else sendErc20(token, networkData[0]);
+  return total;
 }
 
 export { spread, setNetworkId, getNetworkData, addRecieverDataToLists, setTableValues, getAssets, sumOf, networkSwitch }

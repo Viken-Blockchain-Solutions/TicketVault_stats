@@ -3,7 +3,6 @@ import { setNetworkId, getNetworkData, getAssets, networkSwitch } from "./utils.
 let selectedChain = document.querySelector("#selectedChain");
 let token, logOut;
 
-
 // Auto log in with metamask and get native assets and token balances.
 (async function () {
   await setNetworkId();
@@ -29,3 +28,5 @@ selectedChain.addEventListener("change", async (event) => {
 
 // listens when user selects a token in front-end
 selectAssets.addEventListener("change", (event) => token = event.target.value);
+
+export { token }

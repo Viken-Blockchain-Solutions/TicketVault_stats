@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    
     <title>Spread dApp</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -120,11 +120,11 @@
             <div class="card m-10">
               <div class="card-body">
                 <div class="d-flex m-2 justify-content-center">
-                  <cite">
+                  <cite>
                     <h5 class="card-subtitle mt-4 mb-2 text-muted ">SPREAD</h5>
                     <h6 class="card-text mb-2 text-muted">Synonym: Verb</h6>
                     <h6 class="card-text mb-4 text-muted"><cite>to broadcast, circulate</cite></h6>
-                    </cite>
+                  </cite>
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@
                             <div class="loading" id="loading-message"></div>
                             <div class="error-message" id="error-message"></div>
                             <div class="sent-message" id="sent-message"></div>
-                            <button class="btn btn-primary m-3" onclick="setTableValues()">Add new recipient</button>
+                            <button class="btn btn-primary m-3" id="setTableValues">Add new recipient</button>
                           </div>
 
                         </div>
@@ -208,7 +208,7 @@
                           <!-- End Table with hoverable rows -->
                         </div>
                       </div>
-                      <button type="submit" onclick="spread()" class="btn btn-primary m-3">Spread</button>
+                      <button type="submit" class="btn btn-primary m-3" id="spread">Spread</button>
                     </div>
 
                   </div>
@@ -248,7 +248,6 @@
     <!-- Template Main JS File -->
     
     <script type='module' src="assets/js/main.js"></script>
-    <script type='module' src="assets/js/spread/utils.js"></script>
     <script type='module' src="assets/js/spread/app.js"></script>
   </body>
 </html>
