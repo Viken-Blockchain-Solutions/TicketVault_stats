@@ -102,8 +102,8 @@ async function sendErc20(token, network) {
       values: valueList
     }
   }
-  if (network.chainId === 1) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadMainnet, ...spreadERC20Options});
-  if (network.chainId === 137) await Moralis.executeFunction({msgValue: sumOf(valsToSum), contractAddress: spreadPolygon, ...spreadERC20Options});
+  if (network.chainId === 1) await Moralis.executeFunction({contractAddress: spreadMainnet, ...spreadERC20Options});
+  if (network.chainId === 137) await Moralis.executeFunction({contractAddress: spreadPolygon, ...spreadERC20Options});
 }
 
 // spreads native or erc20 assets
