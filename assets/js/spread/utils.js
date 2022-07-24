@@ -9,8 +9,6 @@ let sum = 1;
 const spreadPolygon = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 const spreadMainnet = "0x87945Ea3BDCe665461348EA8AfE0b07b0e4E121F";
 
-// const spreadPolygon = spreadAddresses[0].polygon;
-// const spreadMainnet = spreadAddresses[1].ethereum;
 let selectAssets = document.querySelector("#selectAssets");
 let nativeOption = document.createElement('option');
 let erc20Option = document.createElement('option');
