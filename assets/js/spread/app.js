@@ -1,45 +1,54 @@
-let user = Moralis.User.current();
 
-if(user){
-  console.log(user.get("ethAddress"))
-  setCurrentUser();
-}
-else {
-  login();
-  setCurrentUser();
+const checkUser = () => {
+  let user = Moralis.User.current();
+  
+  if(user){
+    console.log("Logged in FLOW")
+    console.log("User Account :",user.get("ethAddress"))
+    console.log("about to set user address, IF USER WAS LOGGED IN AT ARRIVAL")
+    let account = user.get("ethAddress");
+    setCurrentUser(account);
+    console.log("user address should be displayed now")
+  }
+  else {
+    console.log("NOT logged in FLOW")
+    login(user)
+  }
 }
 
 fetchAssets();
+
+
+
 /* Authentication code */
 async function login() {
-  user = await Moralis.authenticate({
-    signingMessage: "Sign a transaction to verify your account!",
+  await Moralis.authenticate({
+    signingMessage: "Welcome to Spread Dapp. Connect to spread assets!",
   })
-    .then(function (user) {
-      //console.log("logged in user:", user);
-      console.log(user.get("ethAddress"));
+    .then(async = (user) => {
+      console.log("inside then.")
+      console.log("about to set user address, IF USER WAS NOT LOGGED IN AT ARRIVAL")
+      let account = user.get("ethAddress");
+      console.log("User Account :", account);
+      setCurrentUser(account);
+      console.log("user address should be displayed now")
     })
-      .catch(function (error) {
-        console.log(error);
-      });
 }
 
-async function logOut() {
+async function disconnect() {
   await Moralis.User.logOut();
-  console.log("logged out");
+  console.log("disconnected!");
 }
 
-function setCurrentUser() {
+async function setCurrentUser(account) {
+  console.log("setting current user")
   let userAddress = document.getElementById("userAddress");
-  if(user) {
-    userAddress.style.display = "block";
-    userAddress.innerHTML = user.get("ethAddress");
-    document.getElementById("btn-login").style.display = "none";
-  }
-  else {
-    userAddress.style.display = "none";
-    document.getElementById("btn-login").style.display = "block";
-  }
+
+  userAddress.style.display = "block";
+  userAddress.innerHTML = account;
+  
+  document.getElementById("btn-login").style.display = "none";
+  document.getElementById("btn-logout").style.display = "block";
 }
 
 // get native assets and token balances.
@@ -74,4 +83,6 @@ async function spread() {
 
 
 document.getElementById("btn-login").onclick = login;
-document.getElementById("btn-logout").onclick = logOut;
+document.getElementById("btn-logout").onclick = disconnect;
+
+checkUser();
