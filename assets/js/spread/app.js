@@ -1,24 +1,24 @@
-(async () => {
-  let user = Moralis.User.current();
-  if(user){
-    console.log(user.get("ethAddress"))
-  }
-  else {
-    login();
-  }
-  fetchAssets();
-})()
+let user = Moralis.User.current();
 
+if(user){
+  console.log(user.get("ethAddress"))
+  setCurrentUser();
+}
+else {
+  login();
+  setCurrentUser();
+}
+
+fetchAssets();
 /* Authentication code */
 async function login() {
-    user = await Moralis.authenticate({
-      signingMessage: "Sign a transaction to verify your account!",
+  user = await Moralis.authenticate({
+    signingMessage: "Sign a transaction to verify your account!",
+  })
+    .then(function (user) {
+      //console.log("logged in user:", user);
+      console.log(user.get("ethAddress"));
     })
-      .then(function (user) {
-        //console.log("logged in user:", user);
-        console.log(user.get("ethAddress"));
-      })
-        
       .catch(function (error) {
         console.log(error);
       });
@@ -27,6 +27,19 @@ async function login() {
 async function logOut() {
   await Moralis.User.logOut();
   console.log("logged out");
+}
+
+function setCurrentUser() {
+  let userAddress = document.getElementById("userAddress");
+  if(user) {
+    userAddress.style.display = "block";
+    userAddress.innerHTML = user.get("ethAddress");
+    document.getElementById("btn-login").style.display = "none";
+  }
+  else {
+    userAddress.style.display = "none";
+    document.getElementById("btn-login").style.display = "block";
+  }
 }
 
 // get native assets and token balances.
