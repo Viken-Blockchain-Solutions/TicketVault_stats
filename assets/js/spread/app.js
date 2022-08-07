@@ -1,30 +1,32 @@
-// FIXME: login.
-let user = Moralis.User.current();
-if(!user) (Moralis.authenticate().then((user) => console.log(user)))();
-// FIXME: logout.
-const logOut = async () => await Moralis.User.logOut();
+import { setNetworkId, getNetworkData, getAssets, networkSwitch } from "./utils.js";
+
+let selectedChain = document.querySelector("#selectedChain");
+let token, logOut;
 
 // Auto log in with metamask and get native assets and token balances.
 (async function () {
-  const web3Provider = await Moralis.enableWeb3();
-  const network = await web3Provider.getNetwork();
+  await setNetworkId();
 
-  let response = await fetch("https://chainid.network/chains.json");
-  let data = await response.json();
+  let user = Moralis.User.current();
+  if(!user) (Moralis.authenticate().then((user) => console.log(user)))();
+  logOut = async () => await Moralis.User.logOut();
 
-  await getNativeAsset(network, data);
-  await getERC20Assets();
-
-  selectAssets.addEventListener("change", (event) => token = event.target.value);
+  await Moralis.enableWeb3();
+  let networkData = await getNetworkData();
+  await getAssets(networkData[0], networkData[1]);
 })()
 
-async function spread() {
-  const web3Provider = await Moralis.enableWeb3();
-  const network = await web3Provider.getNetwork();
+// event listeners, 
+// listens when user selects chain in front-end
+selectedChain.addEventListener("change", async (event) => {
+  let chain = event.target.value;
+  await networkSwitch(chain);
 
-  if(selectAssets.value === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") sendNativeAsset(network);
-  else if(selectAssets.value ===  "") {
-    alert("Please select an asset to spread");
-    throw "no selected asset";
-  } else sendErc20(token, network);
-}
+  let networkData = await getNetworkData();
+  await getAssets(networkData[0], networkData[1]);
+});
+
+// listens when user selects a token in front-end
+selectAssets.addEventListener("change", (event) => token = event.target.value);
+
+export { token }
