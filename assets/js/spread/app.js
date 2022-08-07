@@ -1,27 +1,31 @@
 // checks the current user
-const checkUser = () => {
+const checkUser = async () => {
   let user = Moralis.User.current();
 
   if(user) {
     let account = user.get("ethAddress");
+    console.log("if statement: ", account)
     setCurrentUser(account);
   }
   else {
-    // removeDisconnected();
-    login();
+    removeDisconnected();
+    let account = await login();
+    console.log("else statement: ", account)
     setCurrentUser(account);
   }
 }
 
 /* Authentication code */
 async function login() {
+  let account;
   await Moralis.authenticate({
     signingMessage: "Welcome to Spread Dapp. Connect to spread assets!",
   })
   .then(async = (user) => {
-    let account = user.get("ethAddress");
+    account = user.get("ethAddress");
     console.log("logged in account:", account);
   })
+  return account;
 }
 
 async function disconnect() {
@@ -33,7 +37,7 @@ async function disconnect() {
 async function setCurrentUser(account) {
   let userAddress = document.getElementById("userAddress");
   
-  fetchAssets();
+  await fetchAssets();
   userAddress.style.display = "block";
   userAddress.innerHTML = account;
 
@@ -72,7 +76,6 @@ async function fetchAssets() {
   let response = await fetch("https://chainid.network/chains.json");
   let data = await response.json();
   
-  console.log(data);
   await getNativeAsset(network, data);
   await getERC20Assets();
   
