@@ -1,3 +1,30 @@
+import { setNetworkId, getNetworkData, getAssets, networkSwitch } from "./utils.js";
+
+let selectedChain = document.querySelector("#selectedChain");
+let token, logOut;
+
+// Auto log in with metamask and get native assets and token balances.
+(async function () {
+  await setNetworkId();
+
+  await Moralis.enableWeb3();
+  let networkData = await getNetworkData();
+  await getAssets(networkData[0], networkData[1]);
+})()
+
+// event listeners, 
+// listens when user selects chain in front-end
+selectedChain.addEventListener("change", async (event) => {
+  let chain = event.target.value;
+  await networkSwitch(chain);
+
+  let networkData = await getNetworkData();
+  await getAssets(networkData[0], networkData[1]);
+});
+
+// listens when user selects a token in front-end
+selectAssets.addEventListener("change", (event) => token = event.target.value);
+
 // checks the current user
 const checkUser = async () => {
   let user = Moralis.User.current();
@@ -82,22 +109,9 @@ async function fetchAssets() {
   selectAssets.addEventListener("change", (event) => token = event.target.value);
 }
 
-async function spread() {
-  const web3Provider = await Moralis.enableWeb3();
-  const network = await web3Provider.getNetwork();
-  
-  if(selectAssets.value === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") sendNativeAsset(network);
-  else if(selectAssets.value ===  "") {
-    alert("Please select an asset to spread");
-    throw "no selected asset";
-  } else sendErc20(token, network);
-}
-
-// is the user logged in or not
-// if user is logged in -> display address.
-// if the user is not logged in -> display login button.
-
 document.getElementById("btn-login").onclick = login;
 document.getElementById("btn-logout").onclick = disconnect;
 
 checkUser();
+
+export { token }
