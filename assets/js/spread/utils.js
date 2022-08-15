@@ -17,21 +17,16 @@ let erc20Option = document.createElement('option');
 async function getNetworkData() {
   let web3Provider = await Moralis.enableWeb3();
   let network = await web3Provider.getNetwork();
-  let chainId = await Moralis.chainId;
   
   let response = await fetch("https://chainid.network/chains.json");
   let data = await response.json();
+  let chainId = await Moralis.chainId;
   
-  return [network, data, chainId];
-}
-
-// Set the correct network ID in the select options droppdown.
-async function setNetworkId() {
-  let chainId = await getNetworkData();
-  
-  if(chainId[2] == "0x1") document.querySelector("#eth").selected = "true";
-  else if(chainId[2] == "0x89") document.querySelector("#matic").selected = "true";
+  if(chainId == "0x1") document.querySelector("#eth").selected = "true";
+  else if(chainId == "0x89") document.querySelector("#matic").selected = "true";
   else document.getElementById("chooseChain").selected = "true";
+  
+  return [network, data];
 }
 
 // fetch the native balance of the address and display it in the select options element 
@@ -191,4 +186,4 @@ function sumOf(arr) {
   return total;
 }
 
-export { spread, setNetworkId, getNetworkData, addRecieverDataToLists, setTableValues, getAssets, sumOf, networkSwitch }
+export { spread, getNetworkData, addRecieverDataToLists, setTableValues, getAssets, sumOf, networkSwitch }

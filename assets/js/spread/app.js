@@ -1,29 +1,7 @@
-import { setNetworkId, getNetworkData, getAssets, networkSwitch } from "./utils.js";
+import { getNetworkData, getAssets, networkSwitch } from "./utils.js";
 
 let selectedChain = document.querySelector("#selectedChain");
-let token, logOut;
-
-// Auto log in with metamask and get native assets and token balances.
-(async function () {
-  await setNetworkId();
-
-  await Moralis.enableWeb3();
-  let networkData = await getNetworkData();
-  await getAssets(networkData[0], networkData[1]);
-})()
-
-// event listeners, 
-// listens when user selects chain in front-end
-selectedChain.addEventListener("change", async (event) => {
-  let chain = event.target.value;
-  await networkSwitch(chain);
-
-  let networkData = await getNetworkData();
-  await getAssets(networkData[0], networkData[1]);
-});
-
-// listens when user selects a token in front-end
-selectAssets.addEventListener("change", (event) => token = event.target.value);
+let token;
 
 // checks the current user
 const checkUser = async () => {
@@ -43,7 +21,7 @@ const checkUser = async () => {
 }
 
 /* Authentication code */
-async function login() {
+async function signIn() {
   let account;
   await Moralis.authenticate({
     signingMessage: "Welcome to Spread Dapp. Connect to spread assets!",
@@ -55,7 +33,7 @@ async function login() {
   return account;
 }
 
-async function disconnect() {
+async function signOut() {
   await Moralis.User.logOut();
   removeDisconnected();
 }
@@ -63,20 +41,17 @@ async function disconnect() {
 // Set current logged in user
 async function setCurrentUser(account) {
   let userAddress = document.getElementById("userAddress");
+  let networkData = getNetworkData();
   
-  await fetchAssets();
+  await getAssets(networkData[0], networkData[1]);
   userAddress.style.display = "block";
   userAddress.innerHTML = account;
 
   // listens to changed account in metamask
   Moralis.onAccountChanged((changedAccount) => {
-    console.log(changedAccount);
     
     login();
-
-    console.log("logged in user", changedAccount);
-    console.log("about to fetch assets");
-    fetchAssets();
+    getAssets(networkData[0], networkData[1]);
     userAddress.innerHTML = changedAccount;
   });
   
@@ -94,23 +69,21 @@ function removeDisconnected() {
   document.getElementById("btn-logout").style.display = "none";
 }
 
+document.getElementById("btn-login").onclick = signIn;
+document.getElementById("btn-logout").onclick = signOut;
 
-// get native assets and token balances.
-async function fetchAssets() {
-  const web3Provider = await Moralis.enableWeb3();
-  const network = await web3Provider.getNetwork();
-  
-  let response = await fetch("https://chainid.network/chains.json");
-  let data = await response.json();
-  
-  await getNativeAsset(network, data);
-  await getERC20Assets();
-  
-  selectAssets.addEventListener("change", (event) => token = event.target.value);
-}
+// event listeners, 
+// listens when user selects chain in front-end
+selectedChain.addEventListener("change", async (event) => {
+  let chain = event.target.value;
+  await networkSwitch(chain);
 
-document.getElementById("btn-login").onclick = login;
-document.getElementById("btn-logout").onclick = disconnect;
+  let networkData = await getNetworkData();
+  await getAssets(networkData[0], networkData[1]);
+});
+
+// listens when user selects a token in front-end
+selectAssets.addEventListener("change", (event) => token = event.target.value);
 
 checkUser();
 
