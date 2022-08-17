@@ -6,7 +6,7 @@ let token;
 // checks the current user
 const checkUser = async () => {
   let user = Moralis.User.current();
-
+  
   if(user) {
     let account = user.get("ethAddress");
     console.log("if statement: ", account)
@@ -21,12 +21,12 @@ const checkUser = async () => {
 }
 
 /* Authentication code */
-async function signIn() {
+async function login() {
   let account;
   await Moralis.authenticate({
     signingMessage: "Welcome to Spread Dapp. Connect to spread assets!",
   })
-  .then(async = (user) => {
+  .then( user => {
     account = user.get("ethAddress");
     console.log("logged in account:", account);
   })
@@ -42,16 +42,19 @@ async function signOut() {
 async function setCurrentUser(account) {
   let userAddress = document.getElementById("userAddress");
   let networkData = getNetworkData();
+  console.log(await networkData);
+  let network = await networkData[0];
+  let data = await networkData[1];
   
-  await getAssets(networkData[0], networkData[1]);
+  await getAssets(network, data);
   userAddress.style.display = "block";
   userAddress.innerHTML = account;
-
+  
   // listens to changed account in metamask
-  Moralis.onAccountChanged((changedAccount) => {
+  Moralis.onAccountChanged(async (changedAccount) => {
     
     login();
-    getAssets(networkData[0], networkData[1]);
+    await getAssets(network, data);
     userAddress.innerHTML = changedAccount;
   });
   
@@ -69,7 +72,7 @@ function removeDisconnected() {
   document.getElementById("btn-logout").style.display = "none";
 }
 
-document.getElementById("btn-login").onclick = signIn;
+document.getElementById("btn-login").onclick = login;
 document.getElementById("btn-logout").onclick = signOut;
 
 // event listeners, 

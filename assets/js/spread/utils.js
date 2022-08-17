@@ -119,6 +119,7 @@ async function networkSwitch(chain) {
     let network = await Moralis.switchNetwork(chain);
     return network;
   } catch(err) {
+    // If user does not have polygon in metamask
     if(err.code !== -32002) addPolygonChain();
   }
 }
