@@ -26,7 +26,7 @@ async function login() {
   await Moralis.authenticate({
     signingMessage: "Welcome to Spread Dapp. Connect to spread assets!",
   })
-  .then( user => {
+  .then(user => {
     account = user.get("ethAddress");
     console.log("logged in account:", account);
   })
@@ -41,22 +41,25 @@ async function signOut() {
 // Set current logged in user
 async function setCurrentUser(account) {
   let userAddress = document.getElementById("userAddress");
-  let networkData = getNetworkData();
-  console.log(await networkData);
+
+  let networkData = await getNetworkData();
   let network = await networkData[0];
   let data = await networkData[1];
   
   await getAssets(network, data);
-  userAddress.style.display = "block";
-  userAddress.innerHTML = account;
   
   // listens to changed account in metamask
   Moralis.onAccountChanged(async (changedAccount) => {
+    let networkData = await getNetworkData();
+    let network = await networkData[0];
+    let data = await networkData[1];
     
-    login();
+    await login();
     await getAssets(network, data);
     userAddress.innerHTML = changedAccount;
   });
+  userAddress.style.display = "block";
+  userAddress.innerHTML = account;
   
   document.getElementById("btn-login").style.display = "none";
   document.getElementById("btn-logout").style.display = "block";

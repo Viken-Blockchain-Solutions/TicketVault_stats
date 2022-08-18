@@ -21,6 +21,9 @@ async function getNetworkData() {
   let response = await fetch("https://chainid.network/chains.json");
   let data = await response.json();
   let chainId = await Moralis.chainId;
+
+  console.log("1:", network);
+  console.log("2:", data);
   
   if(chainId == "0x1") document.querySelector("#eth").selected = "true";
   else if(chainId == "0x89") document.querySelector("#matic").selected = "true";
@@ -119,13 +122,12 @@ async function networkSwitch(chain) {
     let network = await Moralis.switchNetwork(chain);
     return network;
   } catch(err) {
-    // If user does not have polygon in metamask
+    // If user does not have the polygon chain in metamask
     if(err.code !== -32002) addPolygonChain();
   }
 }
 
 // adds polygon to metamask
-// if user does not have chain
 async function addPolygonChain() {
   const chainId = 137;
   const chainName = "Polygon Mainnet";
